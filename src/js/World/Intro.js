@@ -6,7 +6,6 @@ export default class Intro {
     // Set options
 
     // Set up
-    this.introDOM = document.querySelector('.intro')
     this.title = 'VitraHaus'
     this.sentences = [
       "La VitraHaus est le magasin phare de Vitra. Les meubles de la collection y sont présentés au gré d'agréments.",
@@ -14,7 +13,13 @@ export default class Intro {
     ]
 
     document.querySelector('#_canvas').classList.add('blur')
-    this.setTitleAnim()
+    // Create intro div
+    this.introDOM = document.createElement('div')
+    this.introDOM.classList.add('intro')
+    document.body.append(this.introDOM)
+    setTimeout(() => {
+      this.setTitleAnim()
+    }, 1400)
   }
   setTitleAnim() {
     // Create title
@@ -79,6 +84,7 @@ export default class Intro {
         easing: 'linear',
         duration: 2000
       })
+      document.querySelector('#_canvas').style.transition = '2s filter linear'
       document.querySelector('.blur').classList.remove('blur')
       setTimeout(() => {
         this.introDOM.remove()
