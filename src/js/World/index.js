@@ -1,5 +1,6 @@
 import { Object3D } from 'three'
 
+import Intro from './Intro'
 import AmbientLightSource from './AmbientLight'
 import PointLightSource from './PointLight'
 import Suzanne from './Suzanne'
@@ -18,9 +19,13 @@ export default class World {
       this.debugFolder.open()
     }
 
+    this.setIntro()
     this.setAmbientLight()
     this.setPointLight()
     this.setSuzanne()
+  }
+  setIntro() {
+    new Intro()
   }
   setAmbientLight() {
     this.light = new AmbientLightSource({
