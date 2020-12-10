@@ -10,6 +10,7 @@ export default class World {
     // Set options
     this.time = options.time
     this.debug = options.debug
+    this.intro = options.intro
 
     // Set up
     this.container = new Object3D()
@@ -25,7 +26,9 @@ export default class World {
     this.setSuzanne()
   }
   setIntro() {
-    new Intro()
+    if(this.intro === true) {
+      new Intro()
+    }
   }
   setAmbientLight() {
     this.light = new AmbientLightSource({

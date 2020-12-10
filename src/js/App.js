@@ -11,6 +11,7 @@ export default class App {
   constructor(options) {
     // Set options
     this.canvas = options.canvas
+    this.intro = options.intro
 
     // Set up
     this.time = new Time()
@@ -62,6 +63,7 @@ export default class App {
     this.world = new World({
       time: this.time,
       debug: this.debug,
+      intro: this.intro,
     })
     // Add world to scene
     this.scene.add(this.world.container)
