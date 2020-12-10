@@ -13,6 +13,7 @@ export default class Intro {
       "La VitraHaus est le magasin phare de Vitra. Les meubles de la collection y sont présentés au gré d'agréments."
     ]
 
+    document.querySelector('#_canvas').classList.add('blur')
     this.setTitleAnim()
   }
   setTitleAnim() {
