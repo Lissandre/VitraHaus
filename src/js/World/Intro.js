@@ -66,7 +66,22 @@ export default class Intro {
           easing: 'linear',
           duration: 4000
         })
-      }, 1000 * (index === 0 ? index+1 : index*6))
+      }, (index === 0 ? 1000  : index * 6000))
     })
+    setTimeout(() => {
+      anime({
+        targets: this.introDOM,
+        opacity: [
+          { value: 1, duration: 0 },
+          { value: 0, duration: 2000 },
+        ],
+        easing: 'linear',
+        duration: 2000
+      })
+      document.querySelector('.blur').classList.remove('blur')
+      setTimeout(() => {
+        this.introDOM.remove()
+      }, 2000)
+    }, 6000 * this.sentences.length - 2000)
   }
 }
