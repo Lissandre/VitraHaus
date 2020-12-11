@@ -116,8 +116,6 @@ export default class Houses {
         }
         this.animationElapsed += this.time.delta / 1000
       }
-
-      this.container.rotation.y += 0.005
     })
   }
 
