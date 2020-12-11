@@ -4,6 +4,8 @@
   "description": "Three template",
   "main": "index.js",
   "dependencies": {
+    "animejs": "^3.2.1",
+    "split-text-js": "^1.0.3"    
     "js-easing-functions": "^1.0.3"
   },
   "devDependencies": {
