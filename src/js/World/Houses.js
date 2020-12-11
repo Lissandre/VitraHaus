@@ -71,7 +71,7 @@ export default class Houses {
 
         oldPos.set(this.clamp(newPos.x, -2, 2), newPos.y, this.clamp(newPos.z, -2, 2))
       }
-      console.log(this.houses)
+
       this.setMovement()
     })
   }
@@ -99,7 +99,7 @@ export default class Houses {
         this.animationElapsed += this.time.delta / 1000;
       }
 
-      this.container.rotation.y += 0.005
+      //this.container.rotation.y += 0.005
     })
   }
 
