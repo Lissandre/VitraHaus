@@ -2,7 +2,7 @@ import { Object3D } from 'three'
 
 import AmbientLightSource from './AmbientLight'
 import PointLightSource from './PointLight'
-import Suzanne from './Suzanne'
+import Houses from './Houses'
 
 export default class World {
   constructor(options) {
@@ -20,7 +20,7 @@ export default class World {
 
     this.setAmbientLight()
     this.setPointLight()
-    this.setSuzanne()
+    this.setHouses()
   }
   setAmbientLight() {
     this.light = new AmbientLightSource({
@@ -34,10 +34,10 @@ export default class World {
     })
     this.container.add(this.light.container)
   }
-  setSuzanne() {
-    this.suzanne = new Suzanne({
+  setHouses() {
+    this.houses = new Houses({
       time: this.time,
     })
-    this.container.add(this.suzanne.container)
+    this.container.add(this.houses.container)
   }
 }

@@ -3,7 +3,9 @@
   "version": "1.4.1",
   "description": "Three template",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "js-easing-functions": "^1.0.3"
+  },
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/preset-env": "^7.12.7",
