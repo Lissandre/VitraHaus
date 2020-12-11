@@ -1,4 +1,4 @@
-import { Scene, WebGLRenderer } from 'three'
+import { Scene, sRGBEncoding, WebGLRenderer } from 'three'
 import * as dat from 'dat.gui'
 
 import Sizes from '@tools/Sizes'
@@ -36,6 +36,8 @@ export default class App {
     // Set renderer pixel ratio & sizes
     this.renderer.setPixelRatio(window.devicePixelRatio)
     this.renderer.setSize(this.sizes.viewport.width, this.sizes.viewport.height)
+    this.renderer.physicallyCorrectLights = true
+    this.renderer.outputEncoding = sRGBEncoding
     // Resize renderer on resize event
     this.sizes.on('resize', () => {
       this.renderer.setSize(
