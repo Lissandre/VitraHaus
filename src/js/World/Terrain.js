@@ -61,7 +61,11 @@ export default class Terrain {
 
     this.terrain = new Mesh(
       geo,
-      new MeshStandardMaterial({ wireframe: false, wireframeLinewidth: 30, side: DoubleSide })
+      new MeshStandardMaterial({
+        wireframe: false,
+        wireframeLinewidth: 30,
+        side: DoubleSide,
+      })
     )
 
     let r = 32

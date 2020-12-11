@@ -81,7 +81,6 @@ export default class Houses {
         this.clamp(newPos.z, -2, 2)
       )
     }
-    console.log(this.houses)
     this.setMovement()
   }
 
