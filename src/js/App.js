@@ -1,4 +1,10 @@
-import { Scene, sRGBEncoding, WebGLRenderer, PCFSoftShadowMap } from 'three'
+import {
+  Scene,
+  sRGBEncoding,
+  WebGLRenderer,
+  PCFSoftShadowMap,
+  ACESFilmicToneMapping,
+} from 'three'
 import * as dat from 'dat.gui'
 
 import Sizes from '@tools/Sizes'
@@ -38,6 +44,8 @@ export default class App {
     this.renderer.setSize(this.sizes.viewport.width, this.sizes.viewport.height)
     this.renderer.physicallyCorrectLights = true
     this.renderer.outputEncoding = sRGBEncoding
+    this.renderer.toneMapping = ACESFilmicToneMapping
+    this.renderer.toneMappingExposure = 0.5
     this.renderer.shadowMap.enabled = true
     this.renderer.shadowMapSoft = true
     this.renderer.shadowMap.type = PCFSoftShadowMap

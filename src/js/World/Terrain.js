@@ -1,4 +1,9 @@
-import { Object3D, Mesh, PlaneBufferGeometry, MeshStandardMaterial } from 'three'
+import {
+  Object3D,
+  Mesh,
+  PlaneBufferGeometry,
+  MeshStandardMaterial,
+} from 'three'
 
 export default class Terrain {
   constructor(options) {
@@ -11,11 +16,11 @@ export default class Terrain {
   createTerrain() {
     this.terrain = new Mesh(
       new PlaneBufferGeometry(100, 100, 32),
-      new MeshStandardMaterial({ color: 0x808080 }
-    ));
+      new MeshStandardMaterial({ color: 0x808080 })
+    )
     this.terrain.rotateX(-Math.PI / 2)
-    this.terrain.receiveShadow = true;
-    this.container.add(this.terrain);
+    this.terrain.receiveShadow = true
+    this.container.add(this.terrain)
     this.setMovement()
   }
   setMovement() {
