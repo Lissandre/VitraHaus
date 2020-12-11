@@ -9,6 +9,7 @@ import * as dat from 'dat.gui'
 
 import Sizes from '@tools/Sizes'
 import Time from '@tools/Time'
+import Loader from '@tools/Loader'
 
 import Camera from './Camera'
 import World from '@world/index'
@@ -22,6 +23,7 @@ export default class App {
     // Set up
     this.time = new Time()
     this.sizes = new Sizes()
+    this.assets = new Loader()
 
     this.setConfig()
     this.setRenderer()
@@ -76,6 +78,7 @@ export default class App {
     this.world = new World({
       time: this.time,
       debug: this.debug,
+      assets: this.assets,
       intro: this.intro,
     })
     // Add world to scene
