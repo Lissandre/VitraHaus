@@ -5,6 +5,7 @@ import AmbientLightSource from './AmbientLight'
 import SunLightSource from './SunLight'
 import Houses from './Houses'
 import Terrain from './Terrain'
+import Water from './Water'
 
 export default class World {
   constructor(options) {
@@ -30,6 +31,7 @@ export default class World {
     this.setSunLight()
     this.setHouses()
     this.setTerrain()
+    this.setWater()
   }
   setLoader() {
     this.loadDiv = document.querySelector('.loadScreen')
@@ -89,5 +91,11 @@ export default class World {
       assets: this.assets,
     })
     this.container.add(this.terrain.container)
+  }
+  setWater() {
+    this.water = new Water({
+      time: this.time,
+    })
+    this.container.add(this.water.container)
   }
 }
