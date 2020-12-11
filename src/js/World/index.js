@@ -43,6 +43,7 @@ export default class World {
       this.loadDiv.remove()
     } else {
       this.assets.on('ressourceLoad', () => {
+        console.log(this.assets.done, this.assets.currentPercent, this.assets.total)
         this.progress.style.width = this.loadModels.innerHTML = `${
           Math.floor((this.assets.done / this.assets.total) * 100) +
           Math.floor((1 / this.assets.total) * this.assets.currentPercent)
@@ -50,6 +51,7 @@ export default class World {
       })
 
       this.assets.on('ressourcesReady', () => {
+        console.log(this.assets.done, this.assets.currentPercent, this.assets.total)
         this.init()
         setTimeout(() => {
           this.loadDiv.style.opacity = 0

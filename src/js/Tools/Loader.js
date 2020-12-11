@@ -74,9 +74,6 @@ export default class Loader extends EventEmitter {
             texture.src,
             (loaded) => {
               this.loadComplete(texture, loaded)
-            },
-            (xhr) => {
-              this.progress(xhr)
             }
           )
         },
