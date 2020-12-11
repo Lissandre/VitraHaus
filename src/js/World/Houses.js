@@ -1,4 +1,4 @@
-import { Object3D, Vector3 } from 'three'
+import { FrontSide, Object3D, Vector3 } from 'three'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { easeInOutSine } from 'js-easing-functions';
@@ -37,6 +37,12 @@ export default class Houses {
 
       for (let i = 0; i < this.amount; i++) {
         let newHouse = loaded.scene.clone()
+        newHouse.traverse(child => {
+          if(child.isMesh) {
+            child.castShadow = true; 
+            child.receiveShadow = true
+            child.material.side = FrontSide
+          }})
 
         newHouse.startRotation = new Vector3(Math.random() * Math.PI * 2, Math.random() * Math.PI * 2, Math.random() * Math.PI * 2)
         newHouse.originalRotation = new Vector3(0, Math.random() * Math.PI * 2, 0)

@@ -1,4 +1,4 @@
-import { Scene, sRGBEncoding, WebGLRenderer } from 'three'
+import { Scene, sRGBEncoding, WebGLRenderer, PCFSoftShadowMap } from 'three'
 import * as dat from 'dat.gui'
 
 import Sizes from '@tools/Sizes'
@@ -32,12 +32,15 @@ export default class App {
       antialias: true,
     })
     // Set background color
-    this.renderer.setClearColor(0x212121, 1)
+    this.renderer.setClearColor(0xa6f0ff, 1)
     // Set renderer pixel ratio & sizes
     this.renderer.setPixelRatio(window.devicePixelRatio)
     this.renderer.setSize(this.sizes.viewport.width, this.sizes.viewport.height)
     this.renderer.physicallyCorrectLights = true
     this.renderer.outputEncoding = sRGBEncoding
+    this.renderer.shadowMap.enabled = true
+    this.renderer.shadowMapSoft = true
+    this.renderer.shadowMap.type = PCFSoftShadowMap
     // Resize renderer on resize event
     this.sizes.on('resize', () => {
       this.renderer.setSize(

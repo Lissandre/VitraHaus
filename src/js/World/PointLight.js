@@ -24,6 +24,8 @@ export default class PointLightSource {
   createPointLight() {
     this.light = new PointLight(this.params.color, this.params.intensity)
     this.light.castShadow = true
+    this.light.shadow.mapSize.width =   1920
+    this.light.shadow.mapSize.height =  1920
     this.light.position.set(
       this.params.positionX,
       this.params.positionY,

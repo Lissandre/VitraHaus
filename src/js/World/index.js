@@ -4,6 +4,7 @@ import Intro from './Intro'
 import AmbientLightSource from './AmbientLight'
 import PointLightSource from './PointLight'
 import Houses from './Houses'
+import Terrain from './Terrain'
 
 export default class World {
   constructor(options) {
@@ -24,6 +25,7 @@ export default class World {
     this.setAmbientLight()
     this.setPointLight()
     this.setHouses()
+    this.setTerrain()
   }
   setIntro() {
     if(this.intro === true) {
@@ -47,5 +49,11 @@ export default class World {
       time: this.time,
     })
     this.container.add(this.houses.container)
+  }
+  setTerrain() {
+    this.terrain = new Terrain({
+      time: this.time,
+    })
+    this.container.add(this.terrain.container)
   }
 }
