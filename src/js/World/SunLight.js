@@ -44,7 +44,8 @@ export default class SunLightSource {
       this.date = new Date()
       this.hours = this.date.getHours()
       this.minutes = this.date.getMinutes()
-      this.effectController.inclination = this.hours / 12 - 1 + this.minutes / 60 / 24
+      this.effectController.inclination =
+        this.hours / 12 - 1 + this.minutes / 60 / 24
     })
 
     this.sky.scale.setScalar(450000)
@@ -97,7 +98,6 @@ export default class SunLightSource {
       .onChange(() => {
         this.setOrientation()
         this.light.position.copy(this.sun)
-
       })
     this.debugFolder.add(this, 'hours', 0, 23, 1).onChange(() => {
       this.effectController.inclination =

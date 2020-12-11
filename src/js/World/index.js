@@ -50,8 +50,8 @@ export default class World {
       })
 
       this.assets.on('ressourcesReady', () => {
+        this.init()
         setTimeout(() => {
-          this.init()
           this.loadDiv.style.opacity = 0
           setTimeout(() => {
             this.loadDiv.remove()

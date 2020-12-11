@@ -1,4 +1,9 @@
-import { Object3D, Mesh, PlaneBufferGeometry, MeshStandardMaterial } from 'three'
+import {
+  Object3D,
+  Mesh,
+  PlaneBufferGeometry,
+  MeshStandardMaterial,
+} from 'three'
 
 export default class Water {
   constructor(options) {
@@ -11,17 +16,15 @@ export default class Water {
   createWater() {
     this.water = new Mesh(
       new PlaneBufferGeometry(256, 256, 32),
-      new MeshStandardMaterial({ color: 0x2030ee, transparent: true, opacity: 0.5 }
-    ));
+      new MeshStandardMaterial({
+        color: 0x2030ee,
+        transparent: true,
+        opacity: 0.5,
+      })
+    )
     this.water.rotateX(-Math.PI / 2)
     this.water.position.y = -0.5
-    this.water.receiveShadow = true;
-    this.container.add(this.water);
-    this.setMovement()
-  }
-  setMovement() {
-    this.time.on('tick', () => {
-
-    })
+    this.water.receiveShadow = true
+    this.container.add(this.water)
   }
 }
