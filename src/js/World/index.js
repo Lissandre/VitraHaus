@@ -5,7 +5,7 @@ import AmbientLightSource from './AmbientLight'
 import SunLightSource from './SunLight'
 import Houses from './Houses'
 import Terrain from './Terrain'
-import Water from './Water'
+import WaterScene from './Water'
 
 export default class World {
   constructor(options) {
@@ -93,8 +93,9 @@ export default class World {
     this.container.add(this.terrain.container)
   }
   setWater() {
-    this.water = new Water({
+    this.water = new WaterScene({
       time: this.time,
+      assets: this.assets,
     })
     this.container.add(this.water.container)
   }

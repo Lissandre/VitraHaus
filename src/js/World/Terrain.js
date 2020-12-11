@@ -4,6 +4,7 @@ import {
   PlaneGeometry,
   MeshStandardMaterial,
   RepeatWrapping,
+  DoubleSide,
 } from 'three'
 import Perlin from '@tools/Perlin'
 
@@ -60,7 +61,7 @@ export default class Terrain {
 
     this.terrain = new Mesh(
       geo,
-      new MeshStandardMaterial({ wireframe: false, wireframeLinewidth: 30 })
+      new MeshStandardMaterial({ wireframe: false, wireframeLinewidth: 30, side: DoubleSide })
     )
 
     let r = 32

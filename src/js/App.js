@@ -47,7 +47,7 @@ export default class App {
     this.renderer.physicallyCorrectLights = true
     this.renderer.outputEncoding = sRGBEncoding
     this.renderer.toneMapping = ACESFilmicToneMapping
-    this.renderer.toneMappingExposure = 0.5
+    this.renderer.toneMappingExposure = 0.7
     this.renderer.shadowMap.enabled = true
     this.renderer.shadowMapSoft = true
     this.renderer.shadowMap.type = PCFSoftShadowMap

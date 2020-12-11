@@ -16,10 +16,10 @@ export default class SunLightSource {
     this.minutes = this.date.getMinutes()
 
     this.effectController = {
-      turbidity: 3.9,
-      rayleigh: 1.288,
-      mieCoefficient: 0.013,
-      mieDirectionalG: 0.998,
+      turbidity: 0.8,
+      rayleigh: 0.985,
+      mieCoefficient: 0.03,
+      mieDirectionalG: 0.89,
       inclination: this.hours / 12 - 1 + this.minutes / 60 / 24,
       azimuth: 0.25,
     }
@@ -52,7 +52,7 @@ export default class SunLightSource {
     this.container.add(this.sky)
   }
   createSunLight() {
-    this.light = new DirectionalLight(0xffffff, 3)
+    this.light = new DirectionalLight(0xffffff, 1.5)
     this.light.castShadow = true
     this.light.shadow.mapSize.width = 1920
     this.light.shadow.mapSize.height = 1920
