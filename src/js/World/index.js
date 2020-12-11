@@ -2,7 +2,7 @@ import { Object3D } from 'three'
 
 import Intro from './Intro'
 import AmbientLightSource from './AmbientLight'
-import PointLightSource from './PointLight'
+import SunLightSource from './SunLight'
 import Houses from './Houses'
 import Terrain from './Terrain'
 
@@ -27,7 +27,7 @@ export default class World {
   init() {
     this.setIntro()
     this.setAmbientLight()
-    this.setPointLight()
+    this.setSunLight()
     this.setHouses()
     this.setTerrain()
   }
@@ -69,9 +69,10 @@ export default class World {
     })
     this.container.add(this.light.container)
   }
-  setPointLight() {
-    this.light = new PointLightSource({
+  setSunLight() {
+    this.light = new SunLightSource({
       debug: this.debugFolder,
+      time: this.time,
     })
     this.container.add(this.light.container)
   }
