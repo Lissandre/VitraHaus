@@ -1,6 +1,7 @@
 import { Object3D } from 'three'
 
 import Intro from './Intro'
+import Sounds from './Sounds'
 import AmbientLightSource from './AmbientLight'
 import SunLightSource from './SunLight'
 import Houses from './Houses'
@@ -14,6 +15,7 @@ export default class World {
     this.debug = options.debug
     this.assets = options.assets
     this.intro = options.intro
+    this.camera = options.camera
 
     // Set up
     this.container = new Object3D()
@@ -26,12 +28,15 @@ export default class World {
     this.setLoader()
   }
   init() {
-    this.setIntro()
     this.setAmbientLight()
     this.setSunLight()
     this.setHouses()
     this.setTerrain()
     this.setWater()
+  }
+  start() {
+    this.setIntro()
+    this.setSounds()
   }
   setLoader() {
     this.loadDiv = document.querySelector('.loadScreen')
@@ -50,13 +55,21 @@ export default class World {
       })
 
       this.assets.on('ressourcesReady', () => {
-        this.init()
-        setTimeout(() => {
-          this.loadDiv.style.opacity = 0
+        this.button = document.createElement('button')
+        this.button.innerHTML = 'Start the experience'
+        this.loadModels.style.display = 'none'
+        this.progress.style.display = 'none'
+        this.loadDiv.append(this.button)
+        this.button.addEventListener('click', () => {
           setTimeout(() => {
-            this.loadDiv.remove()
-          }, 550)
-        }, 1000)
+            this.loadDiv.style.opacity = 0
+            setTimeout(() => {
+              this.loadDiv.remove()
+            }, 550)
+          }, 1000)
+          this.start()
+        })
+        this.init()
       })
     }
   }
@@ -64,6 +77,12 @@ export default class World {
     if (this.intro === true) {
       new Intro()
     }
+  }
+  setSounds() {
+    this.sounds = new Sounds({
+      assets: this.assets,
+      camera: this.camera,
+    })
   }
   setAmbientLight() {
     this.light = new AmbientLightSource({
