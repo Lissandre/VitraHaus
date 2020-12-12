@@ -11,8 +11,9 @@ export default class Houses {
     this.container = new Object3D()
     this.houses = []
     this.amount = 20
-    this.baseScale = 0.0025
-    this.spread = new Vector3(0.8, 0.2, 0.8)
+    this.scale = 4;
+    this.baseScale = 0.0025 * this.scale
+    this.spread = new Vector3(0.8 * this.scale, 0.2 * this.scale, 0.8 * this.scale)
     this.animationDuration = 1.5
     this.animationElapsed = 0
     this.animationOffset = 0.05

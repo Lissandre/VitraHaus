@@ -4,9 +4,10 @@ import {
   PlaneGeometry,
   MeshStandardMaterial,
   RepeatWrapping,
-  DoubleSide,
+  sRGBEncoding
 } from 'three'
-import Perlin from '@tools/Perlin'
+import Simplex from 'perlin-simplex'
+
 
 export default class Terrain {
   constructor(options) {
@@ -18,7 +19,7 @@ export default class Terrain {
     this.container = new Object3D()
     this.size = 256
     this.resolution = 256
-    this.perlin = new Perlin()
+    this.simplex = new Simplex()
     this.islandSize = 5
     this.outerIslands = 50 + Math.random() * 2
     this.createTerrain()
@@ -33,38 +34,42 @@ export default class Terrain {
     )
     let vertices = geo.vertices
 
-    let p,
+    let p1, p2,
       v,
       d = 0
 
     for (let i = 0; i < vertices.length - this.resolution; i++) {
       v = vertices[i]
       d = Math.sqrt(Math.pow(v.x, 2) + Math.pow(v.y, 2))
-      p =
-        (this.perlin.get(
-          (v.x + this.resolution / 2) / this.resolution,
-          (v.y + this.resolution / 2) / this.resolution
-        ) *
-          2 *
-          d) /
-        this.size
+      p1 =
+        (this.simplex.noise(
+          v.x / 100,
+          v.y / 100
+        ) * 2 * d) / this.size
+
+      p2 =
+        (this.simplex.noise(
+          v.x / 20,
+          v.y / 20
+        ) * 2 * d) / this.size
 
       // if (d < this.islandSize) {
-      //  v.z += p * 100
+      //  v.z += p* 2 * * 100
       //}
       if (d > this.islandSize) {
         v.z +=
           (Math.sin((d - this.outerIslands) / 10) - 1) * 5 +
-          p * (d - this.islandSize)
+          p1 * 25 +
+          p2 * 2
       }
     }
+
 
     this.terrain = new Mesh(
       geo,
       new MeshStandardMaterial({
         wireframe: false,
         wireframeLinewidth: 30,
-        side: DoubleSide,
       })
     )
 
@@ -74,6 +79,7 @@ export default class Terrain {
     albedo_.wrapS = RepeatWrapping
     albedo_.wrapT = RepeatWrapping
     albedo_.repeat.set(r, r)
+    albedo_.encoding = sRGBEncoding
     this.terrain.material.map = albedo_
 
     const normal_ = this.assets.textures.sand_Normal

@@ -4,6 +4,7 @@ import {
   WebGLRenderer,
   PCFSoftShadowMap,
   ACESFilmicToneMapping,
+  FogExp2
 } from 'three'
 import * as dat from 'dat.gui'
 
@@ -33,11 +34,13 @@ export default class App {
   setRenderer() {
     // Set scene
     this.scene = new Scene()
+    this.scene.fog = new FogExp2(0xffffff, 0.005)
+
     // Set renderer
     this.renderer = new WebGLRenderer({
       canvas: this.canvas,
       alpha: true,
-      antialias: true,
+      antialias: true
     })
     // Set background color
     this.renderer.setClearColor(0xa6f0ff, 1)
