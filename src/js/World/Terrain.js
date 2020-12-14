@@ -86,9 +86,9 @@ export default class Terrain {
 
       if (d > this.islandSize) {
         v.z += this.GetHeight(d, p1, p2)
-        if (v.z > 5 - Math.random() * 5) {
-          this.possibleGrassPositions.push(v)
-        }
+      }
+      if (d > (this.islandSize+30) && v.z > 5 - Math.random() * 5) {
+        this.possibleGrassPositions.push(v)
       }
     }
 
