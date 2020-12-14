@@ -113,7 +113,7 @@ export default class App {
     })
 
     this.time.on('tick', () => {
-      this.renderer.render(this.scene, this.camera.camera)
+      // this.renderer.render(this.scene, this.camera.camera)
       this.passes.composer.render()
     })
   }
