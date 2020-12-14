@@ -6,6 +6,7 @@ export default class Houses {
     // Options
     this.time = options.time
     this.assets = options.assets
+    this.housesList = options.housesList
 
     // Set up
     this.container = new Object3D()
@@ -32,10 +33,13 @@ export default class Houses {
 
     for (let i = 0; i < this.amount; i++) {
       let newHouse = this.assets.models.house.scene.clone()
+      this.housesList.push(newHouse)
       newHouse.traverse((child) => {
         if (child.isMesh) {
           child.castShadow = true
           child.receiveShadow = true
+          child.material = child.material.clone()
+          child.material.name = `copy_${child.material.name}${i}`
           child.material.side = FrontSide
         }
       })
