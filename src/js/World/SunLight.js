@@ -21,7 +21,7 @@ export default class SunLightSource {
       mieCoefficient: 0.03,
       mieDirectionalG: 0.89,
       inclination: this.hours / 12 - 1 + this.minutes / 60 / 24,
-      azimuth: 0.25,
+      azimuth: 0.4104,
     }
 
     this.createSkyBox()

@@ -53,7 +53,7 @@ export default class App {
     this.renderer.setPixelRatio(window.devicePixelRatio)
     this.renderer.setSize(this.sizes.viewport.width, this.sizes.viewport.height)
     this.renderer.physicallyCorrectLights = true
-    this.renderer.outputEncoding = sRGBEncoding
+    // this.renderer.outputEncoding = sRGBEncoding
     this.renderer.toneMapping = ACESFilmicToneMapping
     this.renderer.toneMappingExposure = 0.7
     this.renderer.shadowMap.enabled = true

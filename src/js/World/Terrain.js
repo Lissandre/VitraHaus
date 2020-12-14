@@ -65,7 +65,7 @@ export default class Terrain {
     grassAlbedo.wrapS = RepeatWrapping
     grassAlbedo.wrapT = RepeatWrapping
     grassAlbedo.repeat.set(1, 1)
-    grassAlbedo.encoding = sRGBEncoding
+    // grassAlbedo.encoding = sRGBEncoding
     this.grassMesh.material.map = grassAlbedo
     this.grassMesh.customDepthMaterial.map = grassAlbedo
 
@@ -122,7 +122,7 @@ export default class Terrain {
     albedo_.wrapS = RepeatWrapping
     albedo_.wrapT = RepeatWrapping
     albedo_.repeat.set(r, r)
-    albedo_.encoding = sRGBEncoding
+    // albedo_.encoding = sRGBEncoding
     this.terrain.material.map = albedo_
 
     const normal_ = this.assets.textures.sand_Normal

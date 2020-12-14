@@ -25,7 +25,7 @@ export default class WaterScene {
     this.water = new Water(new PlaneBufferGeometry(256, 256, 32), {
       color: 0xb1b1dc,
       scale: 4,
-      flowDirection: new Vector2(1, 1),
+      flowDirection: new Vector2(0.1, 0.1),
       textureWidth: 256,
       textureHeight: 256,
     })
