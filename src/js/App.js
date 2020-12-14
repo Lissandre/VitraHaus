@@ -89,9 +89,9 @@ export default class App {
     // Create passes
     this.passes.renderPass = new RenderPass(this.scene, this.camera.camera)
     this.passes.bokehPass = new BokehPass(this.scene, this.camera.camera, {
-      focus: 15.0,
-      aperture: 0.00012,
-      maxblur: 0.005,
+      focus: 20.0,
+      aperture: 0.00003,
+      maxblur: 0.004,
       width: this.sizes.viewport.width,
       height: this.sizes.viewport.height
     })
