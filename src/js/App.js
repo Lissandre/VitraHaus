@@ -4,14 +4,18 @@ import {
   WebGLRenderer,
   PCFSoftShadowMap,
   ACESFilmicToneMapping,
-  FogExp2
+  FogExp2,
 } from 'three'
+
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer'
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass'
+import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass'
+
 import * as dat from 'dat.gui'
 
 import Sizes from '@tools/Sizes'
 import Time from '@tools/Time'
 import Loader from '@tools/Loader'
-
 import Camera from './Camera'
 import World from '@world/index'
 
@@ -29,6 +33,7 @@ export default class App {
     this.setConfig()
     this.setRenderer()
     this.setCamera()
+    this.setPass()
     this.setWorld()
   }
   setRenderer() {
@@ -40,7 +45,7 @@ export default class App {
     this.renderer = new WebGLRenderer({
       canvas: this.canvas,
       alpha: true,
-      antialias: true
+      antialias: true,
     })
     // Set background color
     this.renderer.setClearColor(0xa6f0ff, 1)
@@ -54,6 +59,7 @@ export default class App {
     this.renderer.shadowMap.enabled = true
     this.renderer.shadowMapSoft = true
     this.renderer.shadowMap.type = PCFSoftShadowMap
+    this.renderer.autoClear = false
     // Resize renderer on resize event
     this.sizes.on('resize', () => {
       this.renderer.setSize(
@@ -62,9 +68,9 @@ export default class App {
       )
     })
     // Set RequestAnimationFrame with 60ips
-    this.time.on('tick', () => {
-      this.renderer.render(this.scene, this.camera.camera)
-    })
+    // this.time.on('tick', () => {
+    //   this.renderer.render(this.scene, this.camera.camera)
+    // })
   }
   setCamera() {
     // Create camera instance
@@ -75,6 +81,41 @@ export default class App {
     })
     // Add camera to scene
     this.scene.add(this.camera.container)
+  }
+  setPass() {
+    this.passes = {}
+    // Set composer
+    this.passes.composer = new EffectComposer(this.renderer)
+    // Create passes
+    this.passes.renderPass = new RenderPass(this.scene, this.camera.camera)
+    this.passes.bokehPass = new BokehPass(this.scene, this.camera.camera, {
+      focus: 15.0,
+      aperture: 0.00012,
+      maxblur: 0.005,
+      width: this.sizes.viewport.width,
+      height: this.sizes.viewport.height
+    })
+
+    this.passes.composer.addPass(this.passes.renderPass)
+    this.passes.composer.addPass(this.passes.bokehPass)
+
+    if(this.debug){
+      this.debug.add( this.passes.bokehPass.uniforms.focus, "value", 0.0, 300.0, 10 ).name('Focus')
+      this.debug.add( this.passes.bokehPass.uniforms.aperture, "value", 0, 0.0001, 0.00001 ).name('Aperture')
+      this.debug.add( this.passes.bokehPass.uniforms.maxblur, "value", 0.0, 0.01, 0.001 ).name('MaxBlur')
+    }
+
+    this.sizes.on('resize', () => {
+      this.passes.composer.setSize(
+        this.sizes.viewport.width,
+        this.sizes.viewport.height
+      )
+    })
+
+    this.time.on('tick', () => {
+      this.renderer.render(this.scene, this.camera.camera)
+      this.passes.composer.render()
+    })
   }
   setWorld() {
     // Create world instance
