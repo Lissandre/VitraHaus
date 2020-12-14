@@ -18,7 +18,7 @@ export default class Camera {
   setCamera() {
     // Create camera
     this.camera = new PerspectiveCamera(
-      75,
+      30.3,
       this.sizes.viewport.width / this.sizes.viewport.height,
       0.1,
       1000
@@ -36,7 +36,7 @@ export default class Camera {
     // Set camera position
     this.camera.position.x = 0
     this.camera.position.y = 3
-    this.camera.position.z = 15
+    this.camera.position.z = 50
   }
   setOrbitControls() {
     // Set orbit control
@@ -46,7 +46,20 @@ export default class Camera {
     )
     this.orbitControls.enabled = true
     this.orbitControls.enableKeys = true
-    this.orbitControls.zoomSpeed = 1
+    this.orbitControls.enableZoom = false
+    this.orbitControls.enablePan = false
+
+    this.orbitControls.minPolarAngle = Math.PI / 3
+    this.orbitControls.maxPolarAngle = Math.PI / 2
+
+    this.orbitControls.enableDamping = true
+    this.orbitControls.dampingFactor = 0.05
+
+    this.orbitControls.autoRotate = true
+    this.orbitControls.autoRotateSpeed = 0.2
+
+    this.orbitControls.target.set(0, 2, 0)
+    this.camera.lookAt(0, 2, 0)
 
     if (this.debug) {
       this.debugFolder = this.debug.addFolder('Camera')
