@@ -39,7 +39,7 @@ export default class App {
   setRenderer() {
     // Set scene
     this.scene = new Scene()
-    this.scene.fog = new FogExp2(0xffffff, 0.005)
+    this.scene.fog = new FogExp2(0xffffff, 0.008)
 
     // Set renderer
     this.renderer = new WebGLRenderer({
