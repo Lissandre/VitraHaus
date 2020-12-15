@@ -48,9 +48,10 @@ export default class World {
       this.loadDiv.remove()
     } else {
       this.assets.on('ressourceLoad', () => {
-        this.progress.style.width = this.loadModels.innerHTML = `${Math.floor((this.assets.done / this.assets.total) * 100) +
+        this.progress.style.width = this.loadModels.innerHTML = `${
+          Math.floor((this.assets.done / this.assets.total) * 100) +
           Math.floor((1 / this.assets.total) * this.assets.currentPercent)
-          }%`
+        }%`
       })
 
       this.assets.on('ressourcesReady', () => {

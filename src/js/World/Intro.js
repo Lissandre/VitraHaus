@@ -9,14 +9,14 @@ export default class Intro extends EventEmitter {
     this.introStatus = options.introStatus
 
     // Set up
-    if(this.introStatus === true) {
+    if (this.introStatus === true) {
       this.title = 'VitraHaus'
       this.sentences = [
-        "Welcome to the virtual generative Museum of generative works, generated.",
-        "Based on the architecture of Herzog & de Meuron’s VitraHaus, this building exhibits the work of several visual artists.",
-        "Enjoy a visit from your sofa or office chair.",
-        "Take a minute to explore the museum with your mouse or your trackpad.",
-        "And scroll to navigate between the different masterpieces.",
+        'Welcome to the virtual generative Museum of generative works, generated.',
+        'Based on the architecture of Herzog & de Meuron’s VitraHaus, this building exhibits the work of several visual artists.',
+        'Enjoy a visit from your sofa or office chair.',
+        'Take a minute to explore the museum with your mouse or your trackpad.',
+        'And scroll to navigate between the different masterpieces.',
       ]
       document.querySelector('#_canvas').classList.add('blur')
 
@@ -29,8 +29,8 @@ export default class Intro extends EventEmitter {
       }, 1400)
     } else {
       setTimeout(() => {
-      this.trigger('endIntro')
-      document.querySelector('.logo.hidden').classList.remove('hidden')
+        this.trigger('endIntro')
+        document.querySelector('.logo.hidden').classList.remove('hidden')
       }, 1400)
     }
   }

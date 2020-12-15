@@ -1,11 +1,11 @@
 import {
   Scene,
-  sRGBEncoding,
+  // sRGBEncoding,
   WebGLRenderer,
   PCFSoftShadowMap,
   ACESFilmicToneMapping,
   FogExp2,
-  Color
+  Color,
 } from 'three'
 
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer'
@@ -33,7 +33,7 @@ export default class App {
     this.assets = new Loader()
     this.houses = []
     this.params = {
-      color: 0xD2DDF5
+      color: 0xd2ddf5,
     }
 
     this.setConfig()
@@ -74,7 +74,7 @@ export default class App {
       )
     })
 
-    if(this.debug) {
+    if (this.debug) {
       this.debugFolder = this.debug.addFolder('Scene')
       this.debugFolder
         .addColor(this.params, 'color')
@@ -120,7 +120,7 @@ export default class App {
       aperture: 0.00006,
       maxblur: 0.003,
       width: this.sizes.viewport.width,
-      height: this.sizes.viewport.height
+      height: this.sizes.viewport.height,
     })
 
     this.passes.composer.addPass(this.passes.renderPass)
@@ -128,9 +128,21 @@ export default class App {
 
     if (this.debug) {
       this.debugFolder = this.debug.addFolder('Depth of Field')
-      this.debugFolder.add(this.passes.bokehPass.uniforms.focus, "value", 0.0, 300.0, 10).name('Focus')
-      this.debugFolder.add(this.passes.bokehPass.uniforms.aperture, "value", 0, 0.0001, 0.00001).name('Aperture')
-      this.debugFolder.add(this.passes.bokehPass.uniforms.maxblur, "value", 0.0, 0.01, 0.001).name('MaxBlur')
+      this.debugFolder
+        .add(this.passes.bokehPass.uniforms.focus, 'value', 0.0, 300.0, 10)
+        .name('Focus')
+      this.debugFolder
+        .add(
+          this.passes.bokehPass.uniforms.aperture,
+          'value',
+          0,
+          0.0001,
+          0.00001
+        )
+        .name('Aperture')
+      this.debugFolder
+        .add(this.passes.bokehPass.uniforms.maxblur, 'value', 0.0, 0.01, 0.001)
+        .name('MaxBlur')
     }
 
     this.sizes.on('resize', () => {

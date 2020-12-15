@@ -1,16 +1,16 @@
 import {
   Object3D,
-  Mesh,
-  PlaneGeometry,
+  // Mesh,
+  // PlaneGeometry,
   BoxGeometry,
   MeshStandardMaterial,
-  RepeatWrapping,
-  sRGBEncoding,
-  PlaneBufferGeometry,
-  DoubleSide,
+  // RepeatWrapping,
+  // sRGBEncoding,
+  // PlaneBufferGeometry,
+  // DoubleSide,
   InstancedMesh,
-  MeshDepthMaterial,
-  RGBADepthPacking,
+  // MeshDepthMaterial,
+  // RGBADepthPacking,
 } from 'three'
 import Simplex from 'perlin-simplex'
 
@@ -36,28 +36,28 @@ export default class Terrain {
   }
 
   createTerrain() {
-    const scale = this.size / this.resolution;
+    const scale = this.size / this.resolution
     const amount = Math.pow(this.resolution, 2)
-    const geometry = new BoxGeometry(
-      scale, scale, scale
-    );
+    const geometry = new BoxGeometry(scale, scale, scale)
     const material = new MeshStandardMaterial({
       color: 0xffffff,
       emissive: 0xffffff,
-      emissiveIntensity: 0.3
-    });
-    this.terrain = new InstancedMesh(
-      geometry,
-      material,
-      amount
-    )
+      emissiveIntensity: 0.3,
+    })
+    this.terrain = new InstancedMesh(geometry, material, amount)
     console.log(amount)
-    let x, y, z, d, p1, p2 = 0;
-    let min = 0
-    let max = 0
+    let x,
+      y,
+      z,
+      d,
+      p1,
+      p2 = 0
+    // let min = 0
+    // let max = 0
     for (let i = 0; i < amount; i++) {
       x = (i % this.resolution) * scale - (this.resolution * scale) / 2
-      z = Math.floor(i / this.resolution) * scale - (this.resolution * scale) / 2
+      z =
+        Math.floor(i / this.resolution) * scale - (this.resolution * scale) / 2
       d = Math.sqrt(Math.pow(x, 2) + Math.pow(z, 2))
       p1 = (this.simplex.noise(x / 15, z / 15) * 2 * d) / this.size
       p2 = (this.simplex.noise(x / 15, z / 15) * 2 * d) / this.size
@@ -67,19 +67,14 @@ export default class Terrain {
         y = this.GetHeight(d, p1, p2)
         let s = Math.max(d / 50, 1)
         this.dummy.scale.set(s * 3, s / 3, s / 3)
-      }
-      else {
+      } else {
         this.dummy.rotation.set(0, 0, 0)
         this.dummy.scale.set(0.9, 0.9, 0.9)
         y = -10
       }
 
       console.log(y)
-      this.dummy.position.set(
-        x,
-        -scale / 2 + y,
-        z
-      )
+      this.dummy.position.set(x, -scale / 2 + y, z)
 
       this.dummy.updateMatrix()
       this.terrain.setMatrixAt(i, this.dummy.matrix)

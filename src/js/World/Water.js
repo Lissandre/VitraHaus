@@ -1,4 +1,10 @@
-import { Object3D, PlaneBufferGeometry, RepeatWrapping, Vector2, Color } from 'three'
+import {
+  Object3D,
+  PlaneBufferGeometry,
+  RepeatWrapping,
+  Vector2,
+  Color,
+} from 'three'
 import { Water } from 'three/examples/jsm/objects/Water2.js'
 
 import Simplex from 'perlin-simplex'
@@ -15,7 +21,7 @@ export default class WaterScene {
     this.params = {
       speed: 10,
       size: 5,
-      color: 0xaebdc2
+      color: 0xaebdc2,
     }
 
     this.simplex = new Simplex()
@@ -31,19 +37,27 @@ export default class WaterScene {
     }
   }
   createWater() {
-    this.water = new Water(new PlaneBufferGeometry(this.size, this.size, this.resolution, this.resolution), {
-      color: this.params.color,
-      scale: 100,
-      flowDirection: new Vector2(0.1, 0.1),
-      textureWidth: 2048,
-      textureHeight: 2048,
-      reflectivity: 0.8,
-      clipBias: 0.01,
-    })
+    this.water = new Water(
+      new PlaneBufferGeometry(
+        this.size,
+        this.size,
+        this.resolution,
+        this.resolution
+      ),
+      {
+        color: this.params.color,
+        scale: 100,
+        flowDirection: new Vector2(0.1, 0.1),
+        textureWidth: 2048,
+        textureHeight: 2048,
+        reflectivity: 0.8,
+        clipBias: 0.01,
+      }
+    )
 
     console.log(this.water)
 
-    this.v = this.water.geometry.attributes.position.array;
+    this.v = this.water.geometry.attributes.position.array
     console.log(this.v)
     this.water.rotation.x = -Math.PI / 2
     this.water.position.y = -1.5

@@ -24,7 +24,7 @@ export default class SunLightSource {
       azimuth: 0.4104,
     }
     this.params = {
-      color: 0xffffff
+      color: 0xffffff,
     }
 
     //this.createSkyBox()

@@ -17,7 +17,7 @@ export default class Controls extends EventEmitter {
     this.descriptionDOM = this.infosDOM.querySelector('p.description')
     this.linkDOM = this.infosDOM.querySelector('a.action')
 
-    this.mouse = {}
+    this.mouse = {}
     this.raycaster = new Raycaster()
     this.direction = new Vector2()
 
@@ -25,26 +25,28 @@ export default class Controls extends EventEmitter {
   }
   mouseMove() {
     document.addEventListener('mousemove', (event) => {
-      this.mouse.x = ( event.clientX / this.sizes.viewport.width ) * 2 - 1
-      this.mouse.y = - ( event.clientY / this.sizes.viewport.height ) * 2 + 1
-      this.raycaster.setFromCamera( this.mouse, this.camera )
+      this.mouse.x = (event.clientX / this.sizes.viewport.width) * 2 - 1
+      this.mouse.y = -(event.clientY / this.sizes.viewport.height) * 2 + 1
+      this.raycaster.setFromCamera(this.mouse, this.camera)
 
       this.objects = []
-      this.houses.forEach(house => {
+      this.houses.forEach((house) => {
         house.traverse((child) => {
-          if(child.isMesh){
+          if (child.isMesh) {
             this.objects.push(child)
           }
         })
       })
 
-      this.intersects = this.raycaster.intersectObjects( this.objects )
+      this.intersects = this.raycaster.intersectObjects(this.objects)
 
       if (this.intersects.length > 0) {
-        this.setInfos(this.houses.indexOf(this.intersects[0].object.parent.parent))
-        this.houses.forEach(house => {
+        this.setInfos(
+          this.houses.indexOf(this.intersects[0].object.parent.parent)
+        )
+        this.houses.forEach((house) => {
           house.traverse((child) => {
-            if(child.isMesh){
+            if (child.isMesh) {
               child.material.emissiveIntensity = 0
             }
           })
@@ -59,7 +61,7 @@ export default class Controls extends EventEmitter {
     })
   }
   setInfos(index) {
-    if(this.infosDOM.classList.contains('hidden')){
+    if (this.infosDOM.classList.contains('hidden')) {
       this.infosDOM.classList.remove('hidden')
     }
     this.titleDOM.innerHTML = data[index].title
