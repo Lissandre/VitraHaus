@@ -17,6 +17,7 @@ import Sizes from '@tools/Sizes'
 import Time from '@tools/Time'
 import Loader from '@tools/Loader'
 import Camera from './Camera'
+import Infos from './Infos'
 import World from '@world/index'
 
 export default class App {
@@ -34,6 +35,7 @@ export default class App {
     this.setConfig()
     this.setRenderer()
     this.setCamera()
+    this.setInfos()
     this.setPass()
     this.setWorld()
   }
@@ -79,10 +81,16 @@ export default class App {
       sizes: this.sizes,
       renderer: this.renderer,
       debug: this.debug,
-      houses: this.houses,
     })
     // Add camera to scene
     this.scene.add(this.camera.container)
+  }
+  setInfos() {
+    this.infos = new Infos({
+      houses: this.houses,
+      sizes: this.sizes,
+      camera: this.camera.camera,
+    })
   }
   setPass() {
     this.passes = {}

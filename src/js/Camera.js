@@ -1,4 +1,4 @@
-import { Color, Object3D, PerspectiveCamera, Raycaster, Vector2 } from 'three'
+import { Object3D, PerspectiveCamera } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 export default class Camera {
@@ -7,18 +7,13 @@ export default class Camera {
     this.sizes = options.sizes
     this.renderer = options.renderer
     this.debug = options.debug
-    this.houses = options.houses
 
     // Set up
-    this.mouse = {}
     this.container = new Object3D()
-    this.raycaster = new Raycaster()
-    this.direction = new Vector2()
 
     this.setCamera()
     this.setPosition()
     this.setOrbitControls()
-    this.mouseMove()
   }
   setCamera() {
     // Create camera
@@ -60,33 +55,5 @@ export default class Camera {
         .add(this.orbitControls, 'enabled')
         .name('Enable Orbit Control')
     }
-  }
-  mouseMove() {
-    document.addEventListener('mousemove', (event) => {
-      this.mouse.x = ( event.clientX / this.sizes.viewport.width ) * 2 - 1
-      this.mouse.y = - ( event.clientY / this.sizes.viewport.height ) * 2 + 1
-      this.raycaster.setFromCamera( this.mouse, this.camera )
-
-      this.objects = []
-      this.houses.forEach(house => {
-        house.traverse((child) => {
-          if(child.isMesh){
-            this.objects.push(child)
-            child.material.emissiveIntensity = 0
-          }
-        })
-      })
-
-      this.intersects = this.raycaster.intersectObjects( this.objects )
-
-      if (this.intersects.length > 0) {
-        this.intersects[0].object.parent.traverse((child) => {
-          if (child.isMesh) {
-            child.material.emissiveIntensity = 1
-            child.material.emissive = new Color(0xff0000)
-          }
-        })
-      }
-    })
   }
 }
