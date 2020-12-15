@@ -16,6 +16,7 @@ export default class World {
     this.assets = options.assets
     this.introStatus = options.intro
     this.camera = options.camera
+    this.housesList = options.houses
 
     // Set up
     this.container = new Object3D()
@@ -102,6 +103,7 @@ export default class World {
       this.houses = new Houses({
         time: this.time,
         assets: this.assets,
+        housesList: this.housesList,
       })
       this.container.add(this.houses.container)
     })

@@ -29,6 +29,7 @@ export default class App {
     this.time = new Time()
     this.sizes = new Sizes()
     this.assets = new Loader()
+    this.houses = []
 
     this.setConfig()
     this.setRenderer()
@@ -78,6 +79,7 @@ export default class App {
       sizes: this.sizes,
       renderer: this.renderer,
       debug: this.debug,
+      houses: this.houses,
     })
     // Add camera to scene
     this.scene.add(this.camera.container)
@@ -125,6 +127,7 @@ export default class App {
       assets: this.assets,
       intro: this.intro,
       camera: this.camera.camera,
+      houses: this.houses,
     })
     // Add world to scene
     this.scene.add(this.world.container)
