@@ -11,6 +11,7 @@ import {
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass'
 import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass'
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass'
 
 import * as dat from 'dat.gui'
 
@@ -20,6 +21,9 @@ import Loader from '@tools/Loader'
 import Camera from './Camera'
 import Infos from './Infos'
 import World from '@world/index'
+
+import fragNoise from '@shaders/noise.frag'
+import vertNoise from '@shaders/noise.vert'
 
 export default class App {
   constructor(options) {
@@ -122,9 +126,20 @@ export default class App {
       width: this.sizes.viewport.width,
       height: this.sizes.viewport.height,
     })
-
+    // Noise
+    this.passes.noisePass = new ShaderPass({
+      uniforms: {
+        "tDiffuse": { value: null },
+        "amount": { value: 0 }
+      },
+      vertexShader: vertNoise,
+      fragmentShader: fragNoise,
+    })
+    this.passes.noisePass.renderToScreen = true
+    // Add to composer
     this.passes.composer.addPass(this.passes.renderPass)
     this.passes.composer.addPass(this.passes.bokehPass)
+    this.passes.composer.addPass(this.passes.noisePass)
 
     if (this.debug) {
       this.debugFolder = this.debug.addFolder('Depth of Field')
@@ -154,6 +169,7 @@ export default class App {
 
     this.time.on('tick', () => {
       // this.renderer.render(this.scene, this.camera.camera)
+      this.passes.noisePass.uniforms["amount"].value += 0.001
       this.passes.composer.render()
     })
   }
