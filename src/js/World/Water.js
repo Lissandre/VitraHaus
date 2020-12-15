@@ -1,4 +1,4 @@
-import { Object3D, Mesh, PlaneBufferGeometry, MeshStandardMaterial, RepeatWrapping, Vector2 } from 'three'
+import { Object3D, PlaneBufferGeometry, RepeatWrapping, Vector2, Color } from 'three'
 import { Water } from 'three/examples/jsm/objects/Water2.js'
 
 import Simplex from 'perlin-simplex'
@@ -14,7 +14,8 @@ export default class WaterScene {
     this.resolution = 256
     this.params = {
       speed: 10,
-      size: 5
+      size: 5,
+      color: 0xaebdc2
     }
 
     this.simplex = new Simplex()
@@ -31,7 +32,7 @@ export default class WaterScene {
   }
   createWater() {
     this.water = new Water(new PlaneBufferGeometry(this.size, this.size, this.resolution, this.resolution), {
-      color: 0xaebdc2,
+      color: this.params.color,
       scale: 100,
       flowDirection: new Vector2(0.1, 0.1),
       textureWidth: 2048,
@@ -69,5 +70,11 @@ export default class WaterScene {
     this.debugFolder = this.debug.addFolder('Water')
     this.debugFolder.add(this.params, 'speed', 0.1, 20.0, 0.1).name('Speed')
     this.debugFolder.add(this.params, 'size', 0.1, 20.0, 0.1).name('Size')
+    this.debugFolder
+      .addColor(this.params, 'color')
+      .name('Color')
+      .onChange(() => {
+        this.water.material.uniforms.color.value = new Color(this.params.color)
+      })
   }
 }
