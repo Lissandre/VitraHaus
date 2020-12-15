@@ -26,8 +26,8 @@ export default class WaterScene {
       color: 0xaebdc2,
       scale: 100,
       flowDirection: new Vector2(0.1, 0.1),
-      textureWidth: 1024,
-      textureHeight: 1024,
+      textureWidth: 2048,
+      textureHeight: 2048,
       reflectivity: 0.8,
       clipBias: 0.01,
     })

@@ -63,6 +63,7 @@ export default class Controls extends EventEmitter {
       this.infosDOM.classList.remove('hidden')
     }
     this.titleDOM.innerHTML = data[index].title
+    // this.titleDOM.innerHTML = data[index].title
     // this.descriptionDOM.innerHTML = data[index].description
     // this.linkDOM.href = data[index].url
   }

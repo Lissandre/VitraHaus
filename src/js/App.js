@@ -5,6 +5,7 @@ import {
   PCFSoftShadowMap,
   ACESFilmicToneMapping,
   FogExp2,
+  Color
 } from 'three'
 
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer'
@@ -31,6 +32,9 @@ export default class App {
     this.sizes = new Sizes()
     this.assets = new Loader()
     this.houses = []
+    this.params = {
+      color: 0xffffff
+    }
 
     this.setConfig()
     this.setRenderer()
@@ -42,8 +46,7 @@ export default class App {
   setRenderer() {
     // Set scene
     this.scene = new Scene()
-    this.scene.fog = new FogExp2(0xffffff, 0.008)
-
+    this.scene.fog = new FogExp2(this.params.color, 0.008)
     // Set renderer
     this.renderer = new WebGLRenderer({
       canvas: this.canvas,
@@ -70,6 +73,17 @@ export default class App {
         this.sizes.viewport.height
       )
     })
+
+    if(this.debug) {
+      this.debugFolder = this.debug.addFolder('Scene')
+      this.debugFolder
+        .addColor(this.params, 'color')
+        .name('Color')
+        .onChange(() => {
+          this.scene.fog.color = new Color(this.params.color)
+          this.renderer.setClearColor(new Color(this.params.color), 1)
+        })
+    }
     // Set RequestAnimationFrame with 60ips
     // this.time.on('tick', () => {
     //   this.renderer.render(this.scene, this.camera.camera)
@@ -113,9 +127,10 @@ export default class App {
     this.passes.composer.addPass(this.passes.bokehPass)
 
     if (this.debug) {
-      this.debug.add(this.passes.bokehPass.uniforms.focus, "value", 0.0, 300.0, 10).name('Focus')
-      this.debug.add(this.passes.bokehPass.uniforms.aperture, "value", 0, 0.0001, 0.00001).name('Aperture')
-      this.debug.add(this.passes.bokehPass.uniforms.maxblur, "value", 0.0, 0.01, 0.001).name('MaxBlur')
+      this.debugFolder = this.debug.addFolder('Depth of Field')
+      this.debugFolder.add(this.passes.bokehPass.uniforms.focus, "value", 0.0, 300.0, 10).name('Focus')
+      this.debugFolder.add(this.passes.bokehPass.uniforms.aperture, "value", 0, 0.0001, 0.00001).name('Aperture')
+      this.debugFolder.add(this.passes.bokehPass.uniforms.maxblur, "value", 0.0, 0.01, 0.001).name('MaxBlur')
     }
 
     this.sizes.on('resize', () => {

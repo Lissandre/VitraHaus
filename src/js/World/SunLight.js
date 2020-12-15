@@ -1,4 +1,4 @@
-import { Object3D, DirectionalLight, Vector3 } from 'three'
+import { Object3D, DirectionalLight, Vector3, Color } from 'three'
 import { Sky } from 'three/examples/jsm/objects/Sky'
 
 export default class SunLightSource {
@@ -23,11 +23,14 @@ export default class SunLightSource {
       inclination: this.hours / 12 - 1 + this.minutes / 60 / 24,
       azimuth: 0.4104,
     }
+    this.params = {
+      color: 0xffffff
+    }
 
     //this.createSkyBox()
     this.createSunLight()
     if (this.debug) {
-      this.setDebug()
+      this.setDebug2()
     }
   }
   createSkyBox() {
@@ -52,7 +55,7 @@ export default class SunLightSource {
     this.container.add(this.sky)
   }
   createSunLight() {
-    this.light = new DirectionalLight(0xffffff, 1.5)
+    this.light = new DirectionalLight(this.params.color, 1.5)
     this.light.castShadow = true
     this.light.shadow.mapSize.width = 1920
     this.light.shadow.mapSize.height = 1920
@@ -66,6 +69,18 @@ export default class SunLightSource {
     this.sun.y = Math.sin(this.phi) * Math.sin(this.theta)
     this.sun.z = Math.sin(this.phi) * Math.cos(this.theta)
     this.uniforms['sunPosition'].value.copy(this.sun)
+  }
+  setDebug2() {
+    this.debugFolder = this.debug.addFolder('SunLight')
+    this.debugFolder
+      .addColor(this.params, 'color')
+      .name('Color')
+      .onChange(() => {
+        this.light.color = new Color(this.params.color)
+      })
+    this.debugFolder
+      .add(this.light, 'intensity', 0.0, 2.0, 0.1)
+      .name('Intensity')
   }
   setDebug() {
     this.debugFolder = this.debug.addFolder('Sky')
