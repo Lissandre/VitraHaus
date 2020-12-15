@@ -14,7 +14,7 @@ export default class World {
     this.time = options.time
     this.debug = options.debug
     this.assets = options.assets
-    this.intro = options.intro
+    this.introStatus = options.intro
     this.camera = options.camera
 
     // Set up
@@ -68,14 +68,14 @@ export default class World {
             }, 550)
           }, 1000)
           this.start()
+          this.init()
         })
-        this.init()
       })
     }
   }
   setIntro() {
-    if (this.intro === true) {
-      new Intro()
+    if (this.introStatus === true) {
+      this.intro = new Intro()
     }
   }
   setSounds() {
@@ -98,11 +98,13 @@ export default class World {
     this.container.add(this.light.container)
   }
   setHouses() {
-    this.houses = new Houses({
-      time: this.time,
-      assets: this.assets,
+    this.intro.on('endIntro', () => {
+      this.houses = new Houses({
+        time: this.time,
+        assets: this.assets,
+      })
+      this.container.add(this.houses.container)
     })
-    this.container.add(this.houses.container)
   }
   setTerrain() {
     this.terrain = new Terrain({
