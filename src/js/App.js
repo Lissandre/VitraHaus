@@ -42,7 +42,7 @@ export default class App {
   setRenderer() {
     // Set scene
     this.scene = new Scene()
-    this.scene.fog = new FogExp2(0xffffff, 0.005)
+    this.scene.fog = new FogExp2(0xffffff, 0.008)
 
     // Set renderer
     this.renderer = new WebGLRenderer({
@@ -51,7 +51,7 @@ export default class App {
       antialias: true,
     })
     // Set background color
-    this.renderer.setClearColor(0xa6f0ff, 1)
+    this.renderer.setClearColor(0xffffff, 1)
     // Set renderer pixel ratio & sizes
     this.renderer.setPixelRatio(window.devicePixelRatio)
     this.renderer.setSize(this.sizes.viewport.width, this.sizes.viewport.height)
@@ -82,6 +82,9 @@ export default class App {
       renderer: this.renderer,
       debug: this.debug,
     })
+    this.time.on('tick', () => {
+      this.camera.orbitControls.update()
+    })
     // Add camera to scene
     this.scene.add(this.camera.container)
   }
@@ -109,10 +112,10 @@ export default class App {
     this.passes.composer.addPass(this.passes.renderPass)
     this.passes.composer.addPass(this.passes.bokehPass)
 
-    if(this.debug){
-      this.debug.add( this.passes.bokehPass.uniforms.focus, "value", 0.0, 300.0, 10 ).name('Focus')
-      this.debug.add( this.passes.bokehPass.uniforms.aperture, "value", 0, 0.0001, 0.00001 ).name('Aperture')
-      this.debug.add( this.passes.bokehPass.uniforms.maxblur, "value", 0.0, 0.01, 0.001 ).name('MaxBlur')
+    if (this.debug) {
+      this.debug.add(this.passes.bokehPass.uniforms.focus, "value", 0.0, 300.0, 10).name('Focus')
+      this.debug.add(this.passes.bokehPass.uniforms.aperture, "value", 0, 0.0001, 0.00001).name('Aperture')
+      this.debug.add(this.passes.bokehPass.uniforms.maxblur, "value", 0.0, 0.01, 0.001).name('MaxBlur')
     }
 
     this.sizes.on('resize', () => {
