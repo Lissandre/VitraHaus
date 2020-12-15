@@ -23,7 +23,6 @@ export default class World {
 
     if (this.debug) {
       this.debugFolder = this.debug.addFolder('World')
-      this.debugFolder.open()
     }
 
     this.setLoader()
@@ -118,6 +117,7 @@ export default class World {
     this.water = new WaterScene({
       time: this.time,
       assets: this.assets,
+      debug: this.debugFolder,
     })
     this.container.add(this.water.container)
   }

@@ -8,9 +8,14 @@ export default class WaterScene {
     // Options
     this.time = options.time
     this.assets = options.assets
+    this.debug = options.debug
 
     this.size = 256
     this.resolution = 256
+    this.params = {
+      speed: 10,
+      size: 5
+    }
 
     this.simplex = new Simplex()
 
@@ -20,6 +25,9 @@ export default class WaterScene {
 
     this.createWater()
     this.animateWater()
+    if (this.debug) {
+      this.setDebug()
+    }
   }
   createWater() {
     this.water = new Water(new PlaneBufferGeometry(this.size, this.size, this.resolution, this.resolution), {
@@ -48,13 +56,18 @@ export default class WaterScene {
         let x = this.v[i]
         let y = this.v[i + 1]
         let n = this.simplex.noise3d(
-          x / 20,
-          y / 20,
-          this.time.current / 3000
+          x / (this.params.height * 5),
+          y / (this.params.height * 5),
+          this.time.current / (this.params.speed * 500)
         )
         this.v[i + 2] = n * 1.5
       }
       this.water.geometry.attributes.position.needsUpdate = true
     })
+  }
+  setDebug() {
+    this.debugFolder = this.debug.addFolder('Water')
+    this.debugFolder.add(this.params, 'speed', 0.1, 20.0, 0.1).name('Speed')
+    this.debugFolder.add(this.params, 'size', 0.1, 20.0, 0.1).name('Size')
   }
 }
