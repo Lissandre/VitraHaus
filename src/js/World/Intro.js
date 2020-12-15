@@ -1,25 +1,37 @@
+import EventEmitter from '@tools/EventEmitter'
 import SplitTextJS from 'split-text-js'
 import anime from 'animejs'
 
-export default class Intro {
-  constructor() {
+export default class Intro extends EventEmitter {
+  constructor(options) {
     // Set options
+    super()
+    this.introStatus = options.introStatus
 
     // Set up
-    this.title = 'VitraHaus'
-    this.sentences = [
-      "La VitraHaus est le magasin phare de Vitra. Les meubles de la collection y sont présentés au gré d'agréments.",
-      "La VitraHaus est le magasin phare de Vitra. Les meubles de la collection y sont présentés au gré d'agréments.",
-    ]
+    if(this.introStatus === true) {
+      this.title = 'VitraHaus'
+      this.sentences = [
+        "Welcome to the virtual generative Museum of generative works, generated.",
+        "Based on the architecture of Herzog & de Meuron’s VitraHaus, this building exhibits the work of several visual artists.",
+        "Enjoy a visit from your sofa or office chair.",
+        "Take a minute to explore the museum with your mouse or your trackpad.",
+        "And scroll to navigate between the different masterpieces.",
+      ]
+      document.querySelector('#_canvas').classList.add('blur')
 
-    document.querySelector('#_canvas').classList.add('blur')
-    // Create intro div
-    this.introDOM = document.createElement('div')
-    this.introDOM.classList.add('intro')
-    document.body.append(this.introDOM)
-    setTimeout(() => {
-      this.setTitleAnim()
-    }, 1400)
+      // Create intro div
+      this.introDOM = document.createElement('div')
+      this.introDOM.classList.add('intro')
+      document.body.append(this.introDOM)
+      setTimeout(() => {
+        this.setTitleAnim()
+      }, 1400)
+    } else {
+      setTimeout(() => {
+      this.trigger('endIntro')
+      }, 1400)
+    }
   }
   setTitleAnim() {
     // Create title
@@ -67,11 +79,11 @@ export default class Intro {
             opacity: [
               { value: 0, duration: 0 },
               { value: 1, duration: 2000 },
-              { value: 1, duration: 1000 },
+              { value: 1, duration: 2000 },
               { value: 0, duration: 1000 },
             ],
             easing: 'linear',
-            duration: 4000,
+            duration: 5000,
           })
         },
         index === 0 ? 1000 : index * 6000
@@ -91,6 +103,7 @@ export default class Intro {
       document.querySelector('.blur').classList.remove('blur')
       setTimeout(() => {
         this.introDOM.remove()
+        this.trigger('endIntro')
       }, 2000)
     }, 6000 * this.sentences.length - 2000)
   }
