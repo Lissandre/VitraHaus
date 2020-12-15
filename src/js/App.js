@@ -162,5 +162,8 @@ export default class App {
     if (window.location.hash === '#debug') {
       this.debug = new dat.GUI({ width: 420 })
     }
+    if (window.location.hash === '#intro') {
+      this.intro = true
+    }
   }
 }

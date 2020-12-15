@@ -23,13 +23,14 @@ export default class Intro extends EventEmitter {
       // Create intro div
       this.introDOM = document.createElement('div')
       this.introDOM.classList.add('intro')
-      document.body.append(this.introDOM)
+      document.body.prepend(this.introDOM)
       setTimeout(() => {
         this.setTitleAnim()
       }, 1400)
     } else {
       setTimeout(() => {
       this.trigger('endIntro')
+      document.querySelector('.logo.hidden').classList.remove('hidden')
       }, 1400)
     }
   }
@@ -103,6 +104,7 @@ export default class Intro extends EventEmitter {
       document.querySelector('.blur').classList.remove('blur')
       setTimeout(() => {
         this.introDOM.remove()
+        document.querySelector('.logo.hidden').classList.remove('hidden')
         this.trigger('endIntro')
       }, 2000)
     }, 6000 * this.sentences.length - 2000)
