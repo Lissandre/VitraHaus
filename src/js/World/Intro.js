@@ -3,28 +3,35 @@ import SplitTextJS from 'split-text-js'
 import anime from 'animejs'
 
 export default class Intro extends EventEmitter {
-  constructor() {
+  constructor(options) {
     // Set options
     super()
+    this.introStatus = options.introStatus
 
     // Set up
-    this.title = 'VitraHaus'
-    this.sentences = [
-      "Welcome to the virtual generative Museum of generative works, generated.",
-      "Based on the architecture of Herzog & de Meuron’s VitraHaus, this building exhibits the work of several visual artists.",
-      "Enjoy a visit from your sofa or office chair.",
-      "Take a minute to explore the museum with your mouse or your trackpad.",
-      "And scroll to navigate between the different masterpieces.",
-    ]
-    document.querySelector('#_canvas').classList.add('blur')
+    if(this.introStatus === true) {
+      this.title = 'VitraHaus'
+      this.sentences = [
+        "Welcome to the virtual generative Museum of generative works, generated.",
+        "Based on the architecture of Herzog & de Meuron’s VitraHaus, this building exhibits the work of several visual artists.",
+        "Enjoy a visit from your sofa or office chair.",
+        "Take a minute to explore the museum with your mouse or your trackpad.",
+        "And scroll to navigate between the different masterpieces.",
+      ]
+      document.querySelector('#_canvas').classList.add('blur')
 
-    // Create intro div
-    this.introDOM = document.createElement('div')
-    this.introDOM.classList.add('intro')
-    document.body.append(this.introDOM)
-    setTimeout(() => {
-      this.setTitleAnim()
-    }, 1400)
+      // Create intro div
+      this.introDOM = document.createElement('div')
+      this.introDOM.classList.add('intro')
+      document.body.append(this.introDOM)
+      setTimeout(() => {
+        this.setTitleAnim()
+      }, 1400)
+    } else {
+      setTimeout(() => {
+      this.trigger('endIntro')
+      }, 1400)
+    }
   }
   setTitleAnim() {
     // Create title

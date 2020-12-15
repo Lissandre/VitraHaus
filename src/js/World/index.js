@@ -74,9 +74,9 @@ export default class World {
     }
   }
   setIntro() {
-    if (this.introStatus === true) {
-      this.intro = new Intro()
-    }
+    this.intro = new Intro({
+      introStatus: this.introStatus,
+    })
   }
   setSounds() {
     this.sounds = new Sounds({
