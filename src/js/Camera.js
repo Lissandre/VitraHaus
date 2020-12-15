@@ -36,7 +36,7 @@ export default class Camera {
     // Set camera position
     this.camera.position.x = 0
     this.camera.position.y = 3
-    this.camera.position.z = 50
+    this.camera.position.z = 60
   }
   setOrbitControls() {
     // Set orbit control
@@ -58,8 +58,8 @@ export default class Camera {
     this.orbitControls.autoRotate = true
     this.orbitControls.autoRotateSpeed = 0.2
 
-    this.orbitControls.target.set(0, 2, 0)
-    this.camera.lookAt(0, 2, 0)
+    this.orbitControls.target.set(0, 8, 0)
+    this.camera.lookAt(0, 8, 0)
 
     if (this.debug) {
       this.debugFolder = this.debug.addFolder('Camera')

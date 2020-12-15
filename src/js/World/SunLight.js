@@ -24,7 +24,7 @@ export default class SunLightSource {
       azimuth: 0.4104,
     }
 
-    this.createSkyBox()
+    //this.createSkyBox()
     this.createSunLight()
     if (this.debug) {
       this.setDebug()
@@ -56,7 +56,7 @@ export default class SunLightSource {
     this.light.castShadow = true
     this.light.shadow.mapSize.width = 1920
     this.light.shadow.mapSize.height = 1920
-    this.light.position.copy(this.sun)
+    //this.light.position.copy(this.sun)
     this.container.add(this.light)
   }
   setOrientation() {
