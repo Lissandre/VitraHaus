@@ -56,8 +56,8 @@ export default class WaterScene {
         let x = this.v[i]
         let y = this.v[i + 1]
         let n = this.simplex.noise3d(
-          x / (this.params.height * 5),
-          y / (this.params.height * 5),
+          x / (this.params.size * 5),
+          y / (this.params.size * 5),
           this.time.current / (this.params.speed * 500)
         )
         this.v[i + 2] = n * 1.5
