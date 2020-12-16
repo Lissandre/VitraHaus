@@ -130,7 +130,7 @@ export default class App {
     this.passes.noisePass = new ShaderPass({
       uniforms: {
         "tDiffuse": { value: null },
-        "amount": { value: 0 }
+        "amount": { value: 10 }
       },
       vertexShader: vertNoise,
       fragmentShader: fragNoise,
