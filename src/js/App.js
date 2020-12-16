@@ -129,8 +129,8 @@ export default class App {
     // Noise
     this.passes.noisePass = new ShaderPass({
       uniforms: {
-        "tDiffuse": { value: null },
-        "amount": { value: 10 }
+        tDiffuse: { value: null },
+        amount: { value: 10 },
       },
       vertexShader: vertNoise,
       fragmentShader: fragNoise,
@@ -169,7 +169,7 @@ export default class App {
 
     this.time.on('tick', () => {
       // this.renderer.render(this.scene, this.camera.camera)
-      this.passes.noisePass.uniforms["amount"].value += 0.001
+      this.passes.noisePass.uniforms['amount'].value += 0.001
       this.passes.composer.render()
     })
   }
