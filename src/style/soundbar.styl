@@ -1,0 +1,43 @@
+.soundButton
+  position absolute
+  top 42px
+  right 48px
+  cursor pointer
+  display flex
+  align-items center
+  -webkit-transition opacity .3s ease-in-out
+  transition opacity .3s ease-in-out
+  height 2rem
+  z-index 2
+
+.soundButtonhover
+  opacity .7
+
+.soundButton>.sound-bar
+  width 1px
+  height 4px
+  margin-right 3px
+  background #fff
+  -webkit-transition -webkit-transform .67s cubic-bezier(.33,0,.22,1)
+  transition -webkit-transform .67s cubic-bezier(.33,0,.22,1)
+  transition transform .67s cubic-bezier(.33,0,.22,1)
+  transition transform .67s cubic-bezier(.33,0,.22,1),-webkit-transform .67s cubic-bezier(.33,0,.22,1)
+
+for num in (0..15)
+  .soundButton>.sound-bar:nth-child({num+1})
+    -webkit-animation upDown 1.2s ease-in-out infinite alternate
+    animation upDown 1.2s ease-in-out infinite alternate
+    -webkit-animation-delay num * 0.2s
+    animation-delay num * 0.2s
+
+@keyframes upDown
+  0%
+    -webkit-transform scaleY(1)
+    transform scaleY(1)
+  to
+    -webkit-transform scaleY(3)
+    transform scaleY(3)
+
+.soundButton.muted>.sound-bar
+  -webkit-animation none
+  animation none
