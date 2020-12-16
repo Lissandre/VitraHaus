@@ -1,4 +1,4 @@
-import { Color, Object3D, PerspectiveCamera, Raycaster, Vector2 } from 'three'
+import { Object3D, PerspectiveCamera } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 export default class Camera {
@@ -7,23 +7,18 @@ export default class Camera {
     this.sizes = options.sizes
     this.renderer = options.renderer
     this.debug = options.debug
-    this.houses = options.houses
 
     // Set up
-    this.mouse = {}
     this.container = new Object3D()
-    this.raycaster = new Raycaster()
-    this.direction = new Vector2()
 
     this.setCamera()
     this.setPosition()
     this.setOrbitControls()
-    this.mouseMove()
   }
   setCamera() {
     // Create camera
     this.camera = new PerspectiveCamera(
-      75,
+      30.3,
       this.sizes.viewport.width / this.sizes.viewport.height,
       0.1,
       1000
@@ -41,7 +36,7 @@ export default class Camera {
     // Set camera position
     this.camera.position.x = 0
     this.camera.position.y = 3
-    this.camera.position.z = 15
+    this.camera.position.z = 60
   }
   setOrbitControls() {
     // Set orbit control
@@ -51,42 +46,26 @@ export default class Camera {
     )
     this.orbitControls.enabled = true
     this.orbitControls.enableKeys = true
-    this.orbitControls.zoomSpeed = 1
+    this.orbitControls.enableZoom = false
+    this.orbitControls.enablePan = false
+
+    this.orbitControls.minPolarAngle = Math.PI / 3
+    this.orbitControls.maxPolarAngle = Math.PI / 2
+
+    this.orbitControls.enableDamping = true
+    this.orbitControls.dampingFactor = 0.05
+
+    this.orbitControls.autoRotate = true
+    this.orbitControls.autoRotateSpeed = 0.2
+
+    this.orbitControls.target.set(0, 8, 0)
+    this.camera.lookAt(0, 8, 0)
 
     if (this.debug) {
       this.debugFolder = this.debug.addFolder('Camera')
-      this.debugFolder.open()
       this.debugFolder
         .add(this.orbitControls, 'enabled')
         .name('Enable Orbit Control')
     }
-  }
-  mouseMove() {
-    document.addEventListener('mousemove', (event) => {
-      this.mouse.x = ( event.clientX / this.sizes.viewport.width ) * 2 - 1
-      this.mouse.y = - ( event.clientY / this.sizes.viewport.height ) * 2 + 1
-      this.raycaster.setFromCamera( this.mouse, this.camera )
-
-      this.objects = []
-      this.houses.forEach(house => {
-        house.traverse((child) => {
-          if(child.isMesh){
-            this.objects.push(child)
-            child.material.emissiveIntensity = 0
-          }
-        })
-      })
-
-      this.intersects = this.raycaster.intersectObjects( this.objects )
-
-      if (this.intersects.length > 0) {
-        this.intersects[0].object.parent.traverse((child) => {
-          if (child.isMesh) {
-            child.material.emissiveIntensity = 1
-            child.material.emissive = new Color(0xff0000)
-          }
-        })
-      }
-    })
   }
 }

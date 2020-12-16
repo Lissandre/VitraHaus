@@ -12,7 +12,7 @@ export default class Houses {
     this.container = new Object3D()
     this.houses = []
     this.amount = 20
-    this.scale = 4
+    this.scale = 8
     this.baseScale = 0.0025 * this.scale
     this.spread = new Vector3(
       0.8 * this.scale,
@@ -59,13 +59,9 @@ export default class Houses {
       )
 
       newHouse.scale.set(0, 0, 0)
-      newHouse.originalScale = new Vector3(
-        1 + Math.random(),
-        1 + Math.random(),
-        1 + Math.random()
-      )
+      newHouse.originalScale = new Vector3(1, 1, 1)
       newHouse.targetScale = newHouse.originalScale
-      newHouse.targetScale.setLength(this.baseScale * (Math.random() + 0.5))
+      newHouse.targetScale.setLength(this.baseScale)
 
       if (i > 2)
         newPos.set(

@@ -11,6 +11,8 @@
   align-items center
   user-select none
   pointer-events none
+  opacity 1
+  transition 1s ease opacity
 
 .arrow
   height 1px
@@ -19,10 +21,11 @@
   background linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%)
 
 h2.title
+  width 340px
   font-family NeueHaas
   font-weight 500
-  font-size 24px
-  line-height 28px
+  font-size 48px
+  line-height 58px
   color #fff
 
 p.description
@@ -43,3 +46,6 @@ a.action
   padding-bottom 2px
   border-bottom 1px solid #fff
   pointer-events auto
+
+.hidden
+  opacity 0

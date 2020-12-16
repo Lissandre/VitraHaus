@@ -1,4 +1,4 @@
-import { Audio, AudioListener } from "three"
+import { Audio, AudioListener } from 'three'
 
 export default class Sounds {
   constructor(options) {
@@ -7,7 +7,7 @@ export default class Sounds {
     this.camera = options.camera
 
     // Set up
-    this.listener = new AudioListener
+    this.listener = new AudioListener()
     this.camera.add(this.listener)
 
     this.setBackgroundAudio()
@@ -25,9 +25,20 @@ export default class Sounds {
     this.setLoop()
   }
   setLoop() {
-    this.backgroundSound.gain.gain.setValueAtTime(0, this.backgroundSound.gain.context.currentTime)
-    this.backgroundSound.gain.gain.linearRampToValueAtTime(0.08, this.backgroundSound.gain.context.currentTime + 10)
-    this.backgroundSound.gain.gain.linearRampToValueAtTime(0.02, this.assets.sounds.background.duration - 22)
-    setTimeout(() => {this.setLoop()},(this.assets.sounds.background.duration - 22)*1000)
+    this.backgroundSound.gain.gain.setValueAtTime(
+      0,
+      this.backgroundSound.gain.context.currentTime
+    )
+    this.backgroundSound.gain.gain.linearRampToValueAtTime(
+      0.08,
+      this.backgroundSound.gain.context.currentTime + 10
+    )
+    this.backgroundSound.gain.gain.linearRampToValueAtTime(
+      0.02,
+      this.assets.sounds.background.duration - 22
+    )
+    setTimeout(() => {
+      this.setLoop()
+    }, (this.assets.sounds.background.duration - 22) * 1000)
   }
 }
