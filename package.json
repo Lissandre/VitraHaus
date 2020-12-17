@@ -6,6 +6,7 @@
   "dependencies": {
     "animejs": "^3.2.1",
     "js-easing-functions": "^1.0.3",
+    "lottie-web": "^5.7.5",
     "perlin-simplex": "0.0.3",
     "split-text-js": "^1.0.3"
   },

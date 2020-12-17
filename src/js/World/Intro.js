@@ -14,12 +14,13 @@ export default class Intro extends EventEmitter {
       this.sentences = [
         'Welcome to the virtual generative Museum of generative works, generated.',
         'Based on the architecture of Herzog & de Meuron’s VitraHaus, this building exhibits the work of several visual artists.',
-        'Enjoy a visit from your sofa or office chair.',
-        'Take a minute to explore the museum with your mouse or your trackpad.',
+        'Enjoy a better experience on desktop, with headphones.',
+        'Take a minute to explore the museum with your mousse or your trackpad.',
         'And scroll to navigate between the different masterpieces.',
       ]
-      document.querySelector('#_canvas').classList.add('blur')
-
+      if(!document.querySelector('.blur')){
+        document.querySelector('#_canvas').classList.add('blur')
+      }
       // Create intro div
       this.introDOM = document.createElement('div')
       this.introDOM.classList.add('intro')
