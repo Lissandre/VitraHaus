@@ -73,8 +73,6 @@ export default class Controls extends EventEmitter {
       } else {
         this.removeName()
       }
-      else
-        this.selected = null
 
     })
   }
@@ -163,6 +161,7 @@ export default class Controls extends EventEmitter {
       easing: 'easeOutQuad',
       duration: 320,
     })
+  }
   mouseClick() {
     document.addEventListener('click', (event) => {
       if (this.selected == null) return
