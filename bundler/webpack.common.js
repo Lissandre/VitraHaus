@@ -39,9 +39,10 @@ module.exports = {
     }
   },
   plugins: [
-    new CopyWebpackPlugin({ 
+    new CopyWebpackPlugin({
       patterns: [
         { from: 'static', to: '' },
+        { from: 'src/gifs', to: './gifs' },
         { from: 'node_modules/three/examples/js/libs/draco/', to: './draco' }
       ]
     }),

@@ -1,5 +1,7 @@
-import { FrontSide, Object3D, Vector3, PlaneBufferGeometry, MeshBasicMaterial, Mesh } from 'three'
+import { FrontSide, Object3D, Vector3, PlaneBufferGeometry, MeshBasicMaterial, Mesh, Texture } from 'three'
 import { easeInOutSine } from 'js-easing-functions'
+import data from '@/data.json'
+import p5 from "p5"
 
 export default class Houses {
   constructor(options) {
@@ -23,8 +25,54 @@ export default class Houses {
     this.animationElapsed = 0
     this.animationOffset = 0.05
 
+    this.selected = 0;
+    this.planes = []
+
+    this.setUpCanvas()
     this.createHouse()
+    this.updatePlanes()
   }
+  setUpCanvas() {
+
+    const sketch = (s) => {
+      let gifs = []
+      s.preload = () => {
+        for (let i = 0; i < this.amount; i++) {
+          gifs.push(s.loadImage("./gifs/" + i + ".gif"));
+        }
+
+      }
+
+      s.setup = () => {
+        this.canvas = s.createCanvas(500, 500, 500, 500);
+        console.log()
+      }
+
+      s.draw = () => {
+        s.image(gifs[this.selected], 0, 0);
+      }
+    }
+    const sketchInstance = new p5(sketch);
+  }
+
+  updatePlanes() {
+    this.time.on('tick', () => {
+      if (!this.canvas) return;
+      let i = 0
+      this.planes.forEach(p => {
+        if (p.visible) {
+          this.selected = i
+          this.canvasTexture = new Texture(this.canvas.canvas)
+          this.canvasTexture.needsUpdate = true
+          p.material.map = this.canvasTexture;
+        }
+        i++
+      });
+
+    })
+
+  }
+
   createHouse() {
     this.originalHouse = this.assets.models.house.scene
     this.originalHouse.scale.set(0.3, 0.3, 0.3)
@@ -32,7 +80,7 @@ export default class Houses {
     let newPos = new Vector3()
 
     const planeGeometry = new PlaneBufferGeometry(150, 150, 1);
-    const planeMaterial = new MeshBasicMaterial({ color: 0xffff00 });
+    const planeMaterial = new MeshBasicMaterial({ color: 0xffffff });
     const plane = new Mesh(planeGeometry, planeMaterial);
 
     for (let i = 0; i < this.amount; i++) {
@@ -83,6 +131,9 @@ export default class Houses {
       newHouse.position.set(newPos.x, newPos.y, newPos.z)
       newHouse.originalPosition = new Vector3(newPos.x, newPos.y, newPos.z)
       let p = plane.clone()
+      this.planes.push(p)
+      p.material.map = this.canvasTexture;// this.assets.textures[data[i].image]
+      p.material.needsUpdate = true
       newHouse.plane = p
       newHouse.plane.rotateY(Math.PI)
       newHouse.plane.position.set(
