@@ -1,6 +1,7 @@
 {
   "0": {
     "url": "https://www.vitra.com/fr-fr/home",
+    "sketch": "./sketches/pixelWormHole.js",
     "title": "Ceci est un titre sur 2 lignes",
     "description": "La VitraHaus est le magasin phare de Vitra. Les meubles de la collection Home y sont présentés au gré d'aménagements recréés avec goût et créativité.",
     "author": "Herzog & de Meuron"

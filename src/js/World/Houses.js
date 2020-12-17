@@ -1,5 +1,6 @@
-import { FrontSide, Object3D, Vector3 } from 'three'
+import { FrontSide, Mesh, Object3D, PlaneBufferGeometry, Vector3, Texture } from 'three'
 import { easeInOutSine } from 'js-easing-functions'
+import data from '@/data.json'
 
 export default class Houses {
   constructor(options) {
@@ -24,6 +25,8 @@ export default class Houses {
     this.animationOffset = 0.05
 
     this.createHouse()
+    this.createScript()
+    this.createCanvas()
   }
   createHouse() {
     this.originalHouse = this.assets.models.house.scene
@@ -33,6 +36,7 @@ export default class Houses {
 
     for (let i = 0; i < this.amount; i++) {
       let newHouse = this.assets.models.house.scene.clone()
+      newHouse.name = `${i}`
       this.housesList.push(newHouse)
       newHouse.traverse((child) => {
         if (child.isMesh) {
@@ -62,6 +66,8 @@ export default class Houses {
       newHouse.originalScale = new Vector3(1, 1, 1)
       newHouse.targetScale = newHouse.originalScale
       newHouse.targetScale.setLength(this.baseScale)
+
+      newHouse.canvas = this.createCanvas(newHouse)
 
       if (i > 2)
         newPos.set(
@@ -121,6 +127,48 @@ export default class Houses {
         this.animationElapsed += this.time.delta / 1000
       }
     })
+  }
+
+  createScript() {
+    this.script = document.createElement('script')
+    this.script.src = data[0].sketch
+    // this.script.addEventListener('load', (loaded) => {
+    //   start()
+    // })
+    document.head.append(this.script)
+    const sc = require('@shaders/sketches/pixelWormHole.js')
+    console.log(sc);
+    this.script.onload = start()
+
+    console.log(this.script)
+  }
+
+  createCanvas(house) {
+    // this.script.src = data[0].sketch
+    // house.sketch = new Mesh(
+    //   new PlaneBufferGeometry(1, 1),
+
+    // )
+  }
+
+  createTexture(text, background, size) {
+    var canvas = document.createElement("canvas")
+    var context = canvas.getContext("2d")
+  
+    context.font = size + "pt Arial"
+  
+    context.fillStyle = background
+    context.fillRect(0, 0, canvas.width, canvas.height)
+  
+    context.textAlign = "center"
+    context.textBaseline = "middle"
+    context.fillStyle = "black"
+    context.fillText(text, canvas.width / 2, canvas.height / 2)
+  
+    var texture = new Texture(canvas)
+    texture.needsUpdate = true
+  
+    return texture
   }
 
   clamp(num, min, max) {

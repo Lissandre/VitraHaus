@@ -1,3 +1,4 @@
 bundler/
 dist/
 node_modules/
+static/
