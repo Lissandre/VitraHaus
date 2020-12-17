@@ -1,12 +1,12 @@
 import anime from 'animejs'
 
-export default class About{
-  constructor(options) {
+export default class About {
+  constructor() {
     // Set options
     // Set up
     this.isActive = false
     this.close = document.querySelector('.closeAbout')
-    console.log(this.close);
+    console.log(this.close)
     this.about = document.querySelector('.about')
     this.aboutContent = document.querySelector('.aboutContent')
     this.text = this.aboutContent.querySelectorAll('div')
@@ -15,7 +15,7 @@ export default class About{
   }
   createBackground() {
     this.isActive = !this.isActive
-    if(this.isActive) {
+    if (this.isActive) {
       this.close.classList.remove('hidden')
       anime({
         targets: this.aboutContent,
@@ -26,7 +26,7 @@ export default class About{
         easing: 'easeOutQuad',
         duration: 250,
       })
-      this.text.forEach(p => {
+      this.text.forEach((p) => {
         anime({
           targets: p,
           opacity: [
@@ -48,7 +48,7 @@ export default class About{
       })
     } else {
       this.close.classList.add('hidden')
-      this.text.forEach(p => {
+      this.text.forEach((p) => {
         anime({
           targets: p,
           opacity: [

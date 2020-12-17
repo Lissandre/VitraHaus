@@ -37,13 +37,13 @@ export default class World {
     this.loadDiv = document.querySelector('.loadScreen')
     this.loadModels = this.loadDiv.querySelector('.load')
     this.progress = this.loadDiv.querySelector('.progress')
-    
+
     lottie.loadAnimation({
       container: this.loadModels, // the dom element that will contain the animation
       renderer: 'svg',
       loop: true,
       autoplay: true,
-      path: './anim.json' // the path to the animation json
+      path: './anim.json', // the path to the animation json
     })
 
     this.assets.on('ressourceLoad', () => {
@@ -59,7 +59,7 @@ export default class World {
       this.loadDiv.append(this.button)
 
       let that = this
-      const start = function() {
+      const start = function () {
         that.button.removeEventListener('click', start)
         setTimeout(() => {
           that.loadDiv.style.opacity = 0

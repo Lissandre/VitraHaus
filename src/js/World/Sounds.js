@@ -46,9 +46,9 @@ export default class Sounds {
   setCommand() {
     this.button.addEventListener('click', () => {
       this.button.classList.toggle('muted')
-      if(this.backgroundSound.isPlaying){
+      if (this.backgroundSound.isPlaying) {
         this.backgroundSound.pause()
-      }else{
+      } else {
         this.backgroundSound.play()
       }
     })

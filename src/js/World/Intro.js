@@ -18,7 +18,7 @@ export default class Intro extends EventEmitter {
         'Take a minute to explore the museum with your mouse or your trackpad.',
         'And scroll to navigate between the different masterpieces.',
       ]
-      if(!document.querySelector('.blur')){
+      if (!document.querySelector('.blur')) {
         document.querySelector('#_canvas').classList.add('blur')
       }
       // Create intro div
@@ -70,26 +70,23 @@ export default class Intro extends EventEmitter {
   setSentencesAnim() {
     this.sentenceDOM = document.createElement('p')
     this.sentences.forEach((sentence, index) => {
-      setTimeout(
-        () => {
-          // Create sentence
-          this.sentenceDOM.innerText = sentence
-          this.introDOM.append(this.sentenceDOM)
-          // Text Animation
-          anime({
-            targets: this.sentenceDOM,
-            opacity: [
-              { value: 0, duration: 0 },
-              { value: 1, duration: 1000 },
-              { value: 1, duration: 2000 },
-              { value: 0, duration: 1000 },
-            ],
-            easing: 'linear',
-            duration: 4000,
-          })
-        },
-        index * 4000
-      )
+      setTimeout(() => {
+        // Create sentence
+        this.sentenceDOM.innerText = sentence
+        this.introDOM.append(this.sentenceDOM)
+        // Text Animation
+        anime({
+          targets: this.sentenceDOM,
+          opacity: [
+            { value: 0, duration: 0 },
+            { value: 1, duration: 1000 },
+            { value: 1, duration: 2000 },
+            { value: 0, duration: 1000 },
+          ],
+          easing: 'linear',
+          duration: 4000,
+        })
+      }, index * 4000)
     })
     setTimeout(() => {
       anime({

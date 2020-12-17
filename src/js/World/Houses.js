@@ -1,7 +1,14 @@
-import { FrontSide, Object3D, Vector3, PlaneBufferGeometry, MeshBasicMaterial, Mesh, Texture } from 'three'
+import {
+  FrontSide,
+  Object3D,
+  Vector3,
+  PlaneBufferGeometry,
+  MeshBasicMaterial,
+  Mesh,
+  Texture,
+} from 'three'
 import { easeInOutSine } from 'js-easing-functions'
-import data from '@/data.json'
-import p5 from "p5"
+import p5 from 'p5'
 
 export default class Houses {
   constructor(options) {
@@ -25,7 +32,7 @@ export default class Houses {
     this.animationElapsed = 0
     this.animationOffset = 0.05
 
-    this.selected = 0;
+    this.selected = 0
     this.planes = []
 
     this.setUpCanvas()
@@ -33,43 +40,40 @@ export default class Houses {
     this.updatePlanes()
   }
   setUpCanvas() {
-
     const sketch = (s) => {
       let gifs = []
       s.preload = () => {
         for (let i = 0; i < this.amount; i++) {
-          gifs.push(s.loadImage("./gifs/" + i + ".gif"))
+          gifs.push(s.loadImage('./gifs/' + i + '.gif'))
         }
       }
 
       s.setup = () => {
-        this.canvas = s.createCanvas(500, 500, 500, 500);
+        this.canvas = s.createCanvas(500, 500, 500, 500)
         console.log()
       }
 
       s.draw = () => {
-        s.image(gifs[this.selected], 0, 0);
+        s.image(gifs[this.selected], 0, 0)
       }
     }
-    const sketchInstance = new p5(sketch);
+    new p5(sketch)
   }
 
   updatePlanes() {
     this.time.on('tick', () => {
-      if (!this.canvas) return;
+      if (!this.canvas) return
       let i = 0
-      this.planes.forEach(p => {
+      this.planes.forEach((p) => {
         if (p.visible) {
           this.selected = i
           this.canvasTexture = new Texture(this.canvas.canvas)
           this.canvasTexture.needsUpdate = true
-          p.material.map = this.canvasTexture;
+          p.material.map = this.canvasTexture
         }
         i++
-      });
-
+      })
     })
-
   }
 
   createHouse() {
@@ -78,9 +82,9 @@ export default class Houses {
     let oldPos = new Vector3()
     let newPos = new Vector3()
 
-    const planeGeometry = new PlaneBufferGeometry(150, 150, 1);
-    const planeMaterial = new MeshBasicMaterial({ color: 0xffffff });
-    const plane = new Mesh(planeGeometry, planeMaterial);
+    const planeGeometry = new PlaneBufferGeometry(150, 150, 1)
+    const planeMaterial = new MeshBasicMaterial({ color: 0xffffff })
+    const plane = new Mesh(planeGeometry, planeMaterial)
 
     for (let i = 0; i < this.amount; i++) {
       let newHouse = this.assets.models.house.scene.clone()
@@ -131,18 +135,14 @@ export default class Houses {
       newHouse.originalPosition = new Vector3(newPos.x, newPos.y, newPos.z)
       let p = plane.clone()
       this.planes.push(p)
-      p.material.map = this.canvasTexture;// this.assets.textures[data[i].image]
+      p.material.map = this.canvasTexture // this.assets.textures[data[i].image]
       p.material.needsUpdate = true
       newHouse.plane = p
       newHouse.plane.rotateY(Math.PI)
-      newHouse.plane.position.set(
-        newPos.x + 0,
-        newPos.y + 90,
-        newPos.z + 150
-      )
+      newHouse.plane.position.set(newPos.x + 0, newPos.y + 90, newPos.z + 150)
       newHouse.add(newHouse.plane)
-      newHouse.plane.visible = false;
-      newHouse.plane.name = "Plane"
+      newHouse.plane.visible = false
+      newHouse.plane.name = 'Plane'
       this.houses.push(newHouse)
       this.container.add(newHouse)
 

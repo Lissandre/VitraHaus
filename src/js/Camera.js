@@ -1,4 +1,4 @@
-import { Object3D, PerspectiveCamera, Vector3, Quaternion, Euler, Mesh, SphereGeometry, MeshBasicMaterial } from 'three'
+import { Object3D, PerspectiveCamera, Vector3 } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 export default class Camera {
@@ -17,15 +17,15 @@ export default class Camera {
     this.currentTargetOrientation = new Vector3(0, 8, 0)
     this.targetPosition = new Vector3(0, 3, 60)
     this.currentTargetPosition = new Vector3(0, 3, 60)
-    this.verticalOffset = 1;
+    this.verticalOffset = 1
 
-    this.selectMode = true;
+    this.selectMode = true
 
-    this.lookBack = false;
-    this.lookValue = 0;
+    this.lookBack = false
+    this.lookValue = 0
     this.target = undefined
 
-    this.state = 0;
+    this.state = 0
 
     this.setCamera()
     this.setPosition()
@@ -92,16 +92,12 @@ export default class Camera {
   startVisit(target) {
     if (this.state == 1) return
     this.orbitControls.target.set(0, 0, 0)
-    this.orbitControls.enabled = false;
+    this.orbitControls.enabled = false
     this.target = target
-    this.selectMode = false;
+    this.selectMode = false
     this.state = 1
 
-    this.currentTargetOrientation.set(
-      0,
-      8,
-      0
-    )
+    this.currentTargetOrientation.set(0, 8, 0)
 
     let t = new Vector3()
 
@@ -111,17 +107,12 @@ export default class Camera {
 
     let r = this.target.originalRotation.y
 
-    this.targetPosition.set(
-      t.x + Math.sin(r) * 50,
-      t.y,
-      t.z + Math.cos(r) * 50
-    )
-
+    this.targetPosition.set(t.x + Math.sin(r) * 50, t.y, t.z + Math.cos(r) * 50)
   }
 
   stopVisit() {
     if (this.state == 1) {
-      this.selectMode = true;
+      this.selectMode = true
       this.state = 2
       this.lookBack = false
       this.lastTargetRotation.set(
@@ -150,13 +141,9 @@ export default class Camera {
     })
   }
 
-
   lerpLookDirection() {
-    if (this.lookBack)
-      this.lookValue = this.lookValue * (1 - 0.1)
-    else
-      this.lookValue = this.lookValue * (1 - 0.1) + Math.PI * 0.1
-
+    if (this.lookBack) this.lookValue = this.lookValue * (1 - 0.1)
+    else this.lookValue = this.lookValue * (1 - 0.1) + Math.PI * 0.1
   }
 
   lerpToTarget() {
@@ -197,7 +184,6 @@ export default class Camera {
   }
 
   lerpToOrbit() {
-
     let r = this.lastTargetRotation.y
     let ori = new Vector3(
       this.targetPosition.x + Math.sin(r + this.lookValue) * 20,
@@ -212,17 +198,9 @@ export default class Camera {
         this.target.plane.visible = false
         this.target = undefined
       }
-      pos.set(
-        60 * Math.sin(r),
-        8,
-        60 * Math.cos(r)
-      )
+      pos.set(60 * Math.sin(r), 8, 60 * Math.cos(r))
 
-      ori = new Vector3(
-        0,
-        8,
-        0
-      )
+      ori = new Vector3(0, 8, 0)
 
       this.currentTargetPosition.lerp(pos, 0.02)
       this.camera.position.set(
@@ -236,27 +214,25 @@ export default class Camera {
     this.camera.lookAt(ori)
     let d1 = this.camera.position.distanceTo(pos)
     let d2 = this.currentTargetOrientation.distanceTo(ori)
-    if ((d1 + d2) < 1) {
-      this.state = 0;
+    if (d1 + d2 < 1) {
+      this.state = 0
       this.camera.position.set(pos.x, pos.y, pos.z)
       this.orbitControls.enabled = true
       this.orbitControls.target.set(0, 8, 0)
       this.camera.lookAt(0, 8, 0)
-
     }
-
   }
 
   lerpToOriginal() {
-    this.houses.forEach(house => {
+    this.houses.forEach((house) => {
       if (house != this.target)
         house.position.lerp(house.originalPosition, 0.03)
-    });
+    })
     // this.target.position.lerp(this.target.originalPosition, 0.01)
   }
 
   stopVisitListen() {
-    document.querySelector('.goBack').addEventListener("click", () => {
+    document.querySelector('.goBack').addEventListener('click', () => {
       this.stopVisit()
       document.querySelector('.goBack').classList.add('hidden')
     })

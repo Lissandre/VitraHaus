@@ -102,7 +102,7 @@ export default class App {
       renderer: this.renderer,
       debug: this.debug,
       time: this.time,
-      houses: this.houses
+      houses: this.houses,
     })
     // Add camera to scene
     this.scene.add(this.camera.container)
