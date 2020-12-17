@@ -20,6 +20,7 @@ import Time from '@tools/Time'
 import Loader from '@tools/Loader'
 import Camera from './Camera'
 import Infos from './Infos'
+import About from './About'
 import World from '@world/index'
 
 import fragNoise from '@shaders/noise.frag'
@@ -44,6 +45,7 @@ export default class App {
     this.setRenderer()
     this.setCamera()
     this.setInfos()
+    this.setAbout()
     this.setPass()
     this.setWorld()
   }
@@ -111,6 +113,9 @@ export default class App {
       sizes: this.sizes,
       camera: this.camera,
     })
+  }
+  setAbout() {
+    this.about = new About()
   }
   setPass() {
     this.passes = {}
