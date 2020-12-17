@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d707dd72-496e-42fd-a0c6-0af5289dfa46/deploy-status)](https://vitrahaus.netlify.app/)
+
 # THREE.js TEMPLATE
 
 ## Requirements & Setup

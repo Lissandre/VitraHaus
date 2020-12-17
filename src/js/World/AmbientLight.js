@@ -7,7 +7,7 @@ export default class AmbientLightSource {
 
     // Set up
     this.container = new Object3D()
-    this.params = { color: 0x232323 }
+    this.params = { color: 0xffffff }
 
     this.createAmbientLight()
 
@@ -21,7 +21,6 @@ export default class AmbientLightSource {
   }
   setDebug() {
     this.debugFolder = this.debug.addFolder('Ambient Light')
-    this.debugFolder.open()
     this.debugFolder
       .addColor(this.params, 'color')
       .name('Color')
