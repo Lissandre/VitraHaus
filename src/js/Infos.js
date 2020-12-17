@@ -84,7 +84,7 @@ export default class Controls extends EventEmitter {
     }
   }
   removeName() {
-    if(this.lastindex){
+    if(this.lastindex != null){
       this.lastindex = null
       anime({
         targets: this.nameDOM,
