@@ -71,6 +71,7 @@ export default class Controls extends EventEmitter {
           }
         })
       } else {
+        this.selected = null
         this.removeName()
       }
 
