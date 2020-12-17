@@ -38,9 +38,8 @@ export default class Houses {
       let gifs = []
       s.preload = () => {
         for (let i = 0; i < this.amount; i++) {
-          gifs.push(s.loadImage("./gifs/" + i + ".gif"));
+          gifs.push(s.loadImage("./gifs/" + i + ".gif"))
         }
-
       }
 
       s.setup = () => {

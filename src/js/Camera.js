@@ -178,6 +178,7 @@ export default class Camera {
 
     this.currentTargetPosition.lerp(pos, 0.05)
     this.camera.position.lerp(pos, 0.05)
+    document.querySelector('.goBack').classList.remove('hidden')
   }
 
   lerpToCamera() {
@@ -255,11 +256,9 @@ export default class Camera {
   }
 
   stopVisitListen() {
-    document.addEventListener("keydown", event => {
-      if (event.isComposing || event.keyCode === 27) {
-        this.stopVisit()
-        return;
-      }
-    });
+    document.querySelector('.goBack').addEventListener("click", () => {
+      this.stopVisit()
+      document.querySelector('.goBack').classList.add('hidden')
+    })
   }
 }
