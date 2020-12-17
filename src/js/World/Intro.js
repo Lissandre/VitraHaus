@@ -80,15 +80,15 @@ export default class Intro extends EventEmitter {
             targets: this.sentenceDOM,
             opacity: [
               { value: 0, duration: 0 },
-              { value: 1, duration: 2000 },
+              { value: 1, duration: 1000 },
               { value: 1, duration: 2000 },
               { value: 0, duration: 1000 },
             ],
             easing: 'linear',
-            duration: 5000,
+            duration: 4000,
           })
         },
-        index === 0 ? 1000 : index * 6000
+        index * 4000
       )
     })
     setTimeout(() => {
@@ -108,6 +108,6 @@ export default class Intro extends EventEmitter {
         document.querySelector('.logo.hidden').classList.remove('hidden')
         this.trigger('endIntro')
       }, 2000)
-    }, 6000 * this.sentences.length - 2000)
+    }, 4000 * this.sentences.length - 2000)
   }
 }
