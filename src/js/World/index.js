@@ -28,11 +28,11 @@ export default class World {
     this.setLoader()
   }
   init() {
-    this.setAmbientLight()
-    this.setSunLight()
+    // this.setAmbientLight()
+    // this.setSunLight()
     this.setHouses()
-    //this.setTerrain()
-    this.setWater()
+    // //this.setTerrain()
+    // this.setWater()
   }
   start() {
     this.setIntro()
@@ -56,20 +56,21 @@ export default class World {
 
       this.assets.on('ressourcesReady', () => {
         this.button = document.createElement('button')
-        this.button.innerHTML = 'Start the experience'
-        this.loadModels.style.display = 'none'
-        this.progress.style.display = 'none'
+        this.button.innerHTML = 'Start VitraHaus'
         this.loadDiv.append(this.button)
         this.button.addEventListener('click', () => {
           setTimeout(() => {
             this.loadDiv.style.opacity = 0
             setTimeout(() => {
               this.loadDiv.remove()
+              this.start()
+              this.init()
             }, 550)
           }, 1000)
-          this.start()
-          this.init()
         })
+        this.setAmbientLight()
+        this.setSunLight()
+        this.setWater()
       })
     }
   }
