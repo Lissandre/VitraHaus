@@ -1,4 +1,4 @@
-import { FrontSide, Object3D, Vector3 } from 'three'
+import { FrontSide, Object3D, Vector3, PlaneBufferGeometry, MeshBasicMaterial, Mesh } from 'three'
 import { easeInOutSine } from 'js-easing-functions'
 
 export default class Houses {
@@ -30,6 +30,10 @@ export default class Houses {
     this.originalHouse.scale.set(0.3, 0.3, 0.3)
     let oldPos = new Vector3()
     let newPos = new Vector3()
+
+    const planeGeometry = new PlaneBufferGeometry(150, 150, 1);
+    const planeMaterial = new MeshBasicMaterial({ color: 0xffff00 });
+    const plane = new Mesh(planeGeometry, planeMaterial);
 
     for (let i = 0; i < this.amount; i++) {
       let newHouse = this.assets.models.house.scene.clone()
@@ -77,6 +81,18 @@ export default class Houses {
         )
 
       newHouse.position.set(newPos.x, newPos.y, newPos.z)
+      newHouse.originalPosition = new Vector3(newPos.x, newPos.y, newPos.z)
+      let p = plane.clone()
+      newHouse.plane = p
+      newHouse.plane.rotateY(Math.PI)
+      newHouse.plane.position.set(
+        newPos.x + 0,
+        newPos.y + 90,
+        newPos.z + 150
+      )
+      newHouse.add(newHouse.plane)
+      newHouse.plane.visible = false;
+      newHouse.plane.name = "Plane"
       this.houses.push(newHouse)
       this.container.add(newHouse)
 

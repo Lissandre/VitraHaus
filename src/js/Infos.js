@@ -2,6 +2,7 @@ import EventEmitter from '@tools/EventEmitter'
 import { Color, Raycaster, Vector2 } from 'three'
 import anime from 'animejs'
 import data from '@/data.json'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 export default class Controls extends EventEmitter {
   constructor(options) {
@@ -24,18 +25,23 @@ export default class Controls extends EventEmitter {
     this.direction = new Vector2()
     this.lastindex = null
 
+
+    this.selected = null;
+
     this.mouseMove()
+    this.mouseClick()
   }
   mouseMove() {
     document.addEventListener('mousemove', (event) => {
       this.mouse.x = (event.clientX / this.sizes.viewport.width) * 2 - 1
-      this.mouse.y = -(event.clientY / this.sizes.viewport.height) * 2 + 1
-      this.raycaster.setFromCamera(this.mouse, this.camera)
+
+      this.mouse.y = - (event.clientY / this.sizes.viewport.height) * 2 + 1
+      this.raycaster.setFromCamera(this.mouse, this.camera.camera)
 
       this.objects = []
       this.houses.forEach((house) => {
         house.traverse((child) => {
-          if (child.isMesh) {
+          if (child.isMesh && child.name != "Plane") {
             this.objects.push(child)
             child.material.emissiveIntensity = 0
 
@@ -43,21 +49,33 @@ export default class Controls extends EventEmitter {
         })
       })
 
+      this.houses.forEach((house) => {
+        house.traverse((child) => {
+          if (child.isMesh) {
+            child.material.emissiveIntensity = 0
+          }
+        })
+      })
+
       this.intersects = this.raycaster.intersectObjects(this.objects)
 
-      if (this.intersects.length > 0) {
+      if (this.intersects.length > 0 && this.camera.selectMode) {
         this.setName(
           this.houses.indexOf(this.intersects[0].object.parent.parent)
         )
         this.intersects[0].object.parent.traverse((child) => {
-          if (child.isMesh) {
-            child.material.emissiveIntensity = 1
-            child.material.emissive = new Color(0xff0000)
+          if (child.isMesh && child != this.selected) {
+            this.selected = child
+            this.selected.material.emissiveIntensity = 0.5
+            this.selected.material.emissive = new Color(0xddddff)
           }
         })
       } else {
         this.removeName()
       }
+      else
+        this.selected = null
+
     })
   }
   setName(index) {
@@ -144,6 +162,19 @@ export default class Controls extends EventEmitter {
       ],
       easing: 'easeOutQuad',
       duration: 320,
+    })
+  mouseClick() {
+    document.addEventListener('click', (event) => {
+      if (this.selected == null) return
+      this.camera.startVisit(this.selected.parent.parent)
+      this.selected == null
+      this.houses.forEach((house) => {
+        house.traverse((child) => {
+          if (child.isMesh) {
+            child.material.emissiveIntensity = 0
+          }
+        })
+      })
     })
   }
 }
