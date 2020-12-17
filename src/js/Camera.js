@@ -214,7 +214,6 @@ export default class Camera {
         8,
         0
       )
-      console.log(pos)
 
       this.currentTargetPosition.lerp(pos, 0.02)
       this.camera.position.set(
@@ -228,7 +227,6 @@ export default class Camera {
     this.camera.lookAt(ori)
     let d1 = this.camera.position.distanceTo(pos)
     let d2 = this.currentTargetOrientation.distanceTo(ori)
-    console.log(d1, d2)
     if ((d1 + d2) < 1) {
       this.state = 0;
       this.camera.position.set(pos.x, pos.y, pos.z)
