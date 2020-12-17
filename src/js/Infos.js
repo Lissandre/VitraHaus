@@ -83,13 +83,9 @@ export default class Controls extends EventEmitter {
     if (this.infosDOM.classList.contains('hidden')) {
       this.infosDOM.classList.remove('hidden')
     }
-<<<<<<< HEAD
+
     if (data[index])
       this.titleDOM.innerHTML = data[index].title
-=======
-    this.titleDOM.innerHTML = data[index].title
-    // this.titleDOM.innerHTML = data[index].title
->>>>>>> 88fe734ba672519388ee3839682690620ec2a2b8
     // this.descriptionDOM.innerHTML = data[index].description
     // this.linkDOM.href = data[index].url
   }
