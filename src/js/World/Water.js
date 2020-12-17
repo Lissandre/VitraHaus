@@ -52,13 +52,12 @@ export default class WaterScene {
         textureHeight: 2048,
         reflectivity: 0.8,
         clipBias: 0.01,
+        normalMap0: this.assets.textures.water.Water_1_M_Normal,
+	      normalMap1: this.assets.textures.water.Water_2_M_Normal,
       }
     )
 
-    console.log(this.water)
-
     this.v = this.water.geometry.attributes.position.array
-    console.log(this.v)
     this.water.rotation.x = -Math.PI / 2
     this.water.position.y = -1.5
     this.water.receiveShadow = true
