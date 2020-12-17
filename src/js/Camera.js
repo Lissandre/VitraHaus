@@ -186,8 +186,10 @@ export default class Camera {
     )
     this.target.position.lerp(pos, 0.02)
     let d = this.target.position.distanceTo(pos)
-    if (d < 2 && this.state == 1)
+    if (d < 2 && this.state == 1) {
       this.lookBack = true
+      this.target.plane.visible = true
+    }
   }
 
   lerpToOrbit() {
@@ -202,7 +204,10 @@ export default class Camera {
     let pos = this.targetPosition
 
     if (this.lookValue > 3.1) {
-      this.target = undefined
+      if (this.target) {
+        this.target.plane.visible = false
+        this.target = undefined
+      }
       pos.set(
         60 * Math.sin(r),
         8,

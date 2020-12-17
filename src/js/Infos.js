@@ -37,8 +37,16 @@ export default class Controls extends EventEmitter {
       this.objects = []
       this.houses.forEach((house) => {
         house.traverse((child) => {
-          if (child.isMesh) {
+          if (child.isMesh && child.name != "Plane") {
             this.objects.push(child)
+          }
+        })
+      })
+
+      this.houses.forEach((house) => {
+        house.traverse((child) => {
+          if (child.isMesh) {
+            child.material.emissiveIntensity = 0
           }
         })
       })
@@ -49,13 +57,6 @@ export default class Controls extends EventEmitter {
         this.setInfos(
           this.houses.indexOf(this.intersects[0].object.parent.parent)
         )
-        this.houses.forEach((house) => {
-          house.traverse((child) => {
-            if (child.isMesh) {
-              child.material.emissiveIntensity = 0
-            }
-          })
-        })
 
         this.intersects[0].object.parent.traverse((child) => {
           if (child.isMesh && child != this.selected) {
