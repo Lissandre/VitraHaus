@@ -44,8 +44,8 @@ export default class App {
     this.setConfig()
     this.setRenderer()
     this.setCamera()
-    this.setInfos()
     this.setAbout()
+    this.setInfos()
     this.setPass()
     this.setWorld()
   }
@@ -112,6 +112,7 @@ export default class App {
       houses: this.houses,
       sizes: this.sizes,
       camera: this.camera,
+      about: this.about,
     })
   }
   setAbout() {

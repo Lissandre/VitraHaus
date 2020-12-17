@@ -12,6 +12,7 @@ export default class Controls extends EventEmitter {
     this.sizes = options.sizes
     this.houses = options.houses
     this.camera = options.camera
+    this.about = options.about
 
     // Set up
     this.infosDOM = document.querySelector('.infos')
@@ -59,7 +60,7 @@ export default class Controls extends EventEmitter {
 
       this.intersects = this.raycaster.intersectObjects(this.objects)
 
-      if (this.intersects.length > 0 && this.camera.selectMode) {
+      if (this.intersects.length > 0 && this.camera.selectMode && !this.about.isActive) {
         this.setName(
           this.houses.indexOf(this.intersects[0].object.parent.parent)
         )
@@ -165,7 +166,7 @@ export default class Controls extends EventEmitter {
   }
   mouseClick() {
     document.addEventListener('click', (event) => {
-      if (this.selected == null) return
+      if (this.selected == null || this.about.isActive) return
       this.camera.startVisit(this.selected.parent.parent)
       this.selected == null
       this.houses.forEach((house) => {
