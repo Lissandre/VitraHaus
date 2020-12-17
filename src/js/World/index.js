@@ -1,4 +1,5 @@
 import { Object3D } from 'three'
+import * as lottie from 'lottie-web'
 
 import Intro from './Intro'
 import Sounds from './Sounds'
@@ -28,51 +29,47 @@ export default class World {
     this.setLoader()
   }
   init() {
-    // this.setAmbientLight()
-    // this.setSunLight()
-    this.setHouses()
-    // //this.setTerrain()
-    // this.setWater()
-  }
-  start() {
     this.setIntro()
+    this.setHouses()
     this.setSounds()
   }
   setLoader() {
     this.loadDiv = document.querySelector('.loadScreen')
     this.loadModels = this.loadDiv.querySelector('.load')
     this.progress = this.loadDiv.querySelector('.progress')
+    
+    lottie.loadAnimation({
+      container: this.loadModels, // the dom element that will contain the animation
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      path: './anim.json' // the path to the animation json
+    })
 
-    if (this.assets.total === 0) {
-      this.init()
-      this.loadDiv.remove()
-    } else {
-      this.assets.on('ressourceLoad', () => {
-        this.progress.style.width = this.loadModels.innerHTML = `${
-          Math.floor((this.assets.done / this.assets.total) * 100) +
-          Math.floor((1 / this.assets.total) * this.assets.currentPercent)
-        }%`
-      })
+    this.assets.on('ressourceLoad', () => {
+      this.progress.style.width = `${
+        Math.floor((this.assets.done / this.assets.total) * 100) +
+        Math.floor((1 / this.assets.total) * this.assets.currentPercent)
+      }%`
+    })
 
-      this.assets.on('ressourcesReady', () => {
-        this.button = document.createElement('button')
-        this.button.innerHTML = 'Start VitraHaus'
-        this.loadDiv.append(this.button)
-        this.button.addEventListener('click', () => {
+    this.assets.on('ressourcesReady', () => {
+      this.button = document.createElement('button')
+      this.button.innerHTML = 'Start VitraHaus'
+      this.loadDiv.append(this.button)
+      this.button.addEventListener('click', () => {
+        setTimeout(() => {
+          this.loadDiv.style.opacity = 0
           setTimeout(() => {
-            this.loadDiv.style.opacity = 0
-            setTimeout(() => {
-              this.loadDiv.remove()
-              this.start()
-              this.init()
-            }, 550)
-          }, 1000)
-        })
-        this.setAmbientLight()
-        this.setSunLight()
-        this.setWater()
+            this.loadDiv.remove()
+            this.init()
+          }, 550)
+        }, 1000)
       })
-    }
+      this.setAmbientLight()
+      this.setSunLight()
+      this.setWater()
+    })
   }
   setIntro() {
     this.intro = new Intro({
