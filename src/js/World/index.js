@@ -23,7 +23,6 @@ export default class World {
 
     if (this.debug) {
       this.debugFolder = this.debug.addFolder('World')
-      this.debugFolder.open()
     }
 
     this.setLoader()
@@ -49,9 +48,10 @@ export default class World {
       this.loadDiv.remove()
     } else {
       this.assets.on('ressourceLoad', () => {
-        this.progress.style.width = this.loadModels.innerHTML = `${Math.floor((this.assets.done / this.assets.total) * 100) +
+        this.progress.style.width = this.loadModels.innerHTML = `${
+          Math.floor((this.assets.done / this.assets.total) * 100) +
           Math.floor((1 / this.assets.total) * this.assets.currentPercent)
-          }%`
+        }%`
       })
 
       this.assets.on('ressourcesReady', () => {
@@ -118,6 +118,7 @@ export default class World {
     this.water = new WaterScene({
       time: this.time,
       assets: this.assets,
+      debug: this.debugFolder,
     })
     this.container.add(this.water.container)
   }

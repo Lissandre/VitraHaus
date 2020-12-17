@@ -82,7 +82,6 @@ export default class Camera {
 
     if (this.debug) {
       this.debugFolder = this.debug.addFolder('Camera')
-      this.debugFolder.open()
       this.debugFolder
         .add(this.orbitControls, 'enabled')
         .name('Enable Orbit Control')

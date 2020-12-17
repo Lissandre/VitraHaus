@@ -59,11 +59,7 @@ export default class Houses {
       )
 
       newHouse.scale.set(0, 0, 0)
-      newHouse.originalScale = new Vector3(
-        1,
-        1,
-        1
-      )
+      newHouse.originalScale = new Vector3(1, 1, 1)
       newHouse.targetScale = newHouse.originalScale
       newHouse.targetScale.setLength(this.baseScale)
 

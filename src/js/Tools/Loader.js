@@ -70,12 +70,9 @@ export default class Loader extends EventEmitter {
       {
         filetype: ['png', 'jpg', 'jpeg'],
         action: (texture) => {
-          textureLoader.load(
-            texture.src,
-            (loaded) => {
-              this.loadComplete(texture, loaded)
-            }
-          )
+          textureLoader.load(texture.src, (loaded) => {
+            this.loadComplete(texture, loaded)
+          })
         },
       },
       {

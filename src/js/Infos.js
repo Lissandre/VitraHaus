@@ -30,11 +30,12 @@ export default class Controls extends EventEmitter {
   mouseMove() {
     document.addEventListener('mousemove', (event) => {
       this.mouse.x = (event.clientX / this.sizes.viewport.width) * 2 - 1
+
       this.mouse.y = - (event.clientY / this.sizes.viewport.height) * 2 + 1
       this.raycaster.setFromCamera(this.mouse, this.camera.camera)
 
       this.objects = []
-      this.houses.forEach(house => {
+      this.houses.forEach((house) => {
         house.traverse((child) => {
           if (child.isMesh) {
             this.objects.push(child)
@@ -45,8 +46,10 @@ export default class Controls extends EventEmitter {
       this.intersects = this.raycaster.intersectObjects(this.objects)
 
       if (this.intersects.length > 0) {
-        this.setInfos(this.houses.indexOf(this.intersects[0].object.parent.parent))
-        this.houses.forEach(house => {
+        this.setInfos(
+          this.houses.indexOf(this.intersects[0].object.parent.parent)
+        )
+        this.houses.forEach((house) => {
           house.traverse((child) => {
             if (child.isMesh) {
               child.material.emissiveIntensity = 0
@@ -80,8 +83,13 @@ export default class Controls extends EventEmitter {
     if (this.infosDOM.classList.contains('hidden')) {
       this.infosDOM.classList.remove('hidden')
     }
+<<<<<<< HEAD
     if (data[index])
       this.titleDOM.innerHTML = data[index].title
+=======
+    this.titleDOM.innerHTML = data[index].title
+    // this.titleDOM.innerHTML = data[index].title
+>>>>>>> 88fe734ba672519388ee3839682690620ec2a2b8
     // this.descriptionDOM.innerHTML = data[index].description
     // this.linkDOM.href = data[index].url
   }

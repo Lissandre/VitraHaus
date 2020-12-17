@@ -1,4 +1,4 @@
-import { Audio, AudioListener } from "three"
+import { Audio, AudioListener } from 'three'
 
 export default class Sounds {
   constructor(options) {
@@ -7,10 +7,12 @@ export default class Sounds {
     this.camera = options.camera
 
     // Set up
-    this.listener = new AudioListener
+    this.listener = new AudioListener()
+    this.button = document.querySelector('.soundButton')
     this.camera.add(this.listener)
 
     this.setBackgroundAudio()
+    this.setCommand()
   }
   setBackgroundAudio() {
     this.backgroundSound = new Audio(this.listener)
@@ -25,9 +27,30 @@ export default class Sounds {
     this.setLoop()
   }
   setLoop() {
-    this.backgroundSound.gain.gain.setValueAtTime(0, this.backgroundSound.gain.context.currentTime)
-    this.backgroundSound.gain.gain.linearRampToValueAtTime(0.08, this.backgroundSound.gain.context.currentTime + 10)
-    this.backgroundSound.gain.gain.linearRampToValueAtTime(0.02, this.assets.sounds.background.duration - 22)
-    setTimeout(() => {this.setLoop()},(this.assets.sounds.background.duration - 22)*1000)
+    this.backgroundSound.gain.gain.setValueAtTime(
+      0,
+      this.backgroundSound.gain.context.currentTime
+    )
+    this.backgroundSound.gain.gain.linearRampToValueAtTime(
+      0.08,
+      this.backgroundSound.gain.context.currentTime + 10
+    )
+    this.backgroundSound.gain.gain.linearRampToValueAtTime(
+      0.02,
+      this.assets.sounds.background.duration - 22
+    )
+    setTimeout(() => {
+      this.setLoop()
+    }, (this.assets.sounds.background.duration - 22) * 1000)
+  }
+  setCommand() {
+    this.button.addEventListener('click', () => {
+      this.button.classList.toggle('muted')
+      if(this.backgroundSound.isPlaying){
+        this.backgroundSound.pause()
+      }else{
+        this.backgroundSound.play()
+      }
+    })
   }
 }
