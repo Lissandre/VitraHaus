@@ -22,6 +22,7 @@ export default class Controls extends EventEmitter {
     this.raycaster = new Raycaster()
     this.direction = new Vector2()
 
+
     this.selected = null;
 
     this.mouseMove()
@@ -53,7 +54,7 @@ export default class Controls extends EventEmitter {
 
       this.intersects = this.raycaster.intersectObjects(this.objects)
 
-      if (this.intersects.length > 0) {
+      if (this.intersects.length > 0 && this.camera.selectMode) {
         this.setInfos(
           this.houses.indexOf(this.intersects[0].object.parent.parent)
         )
@@ -61,8 +62,8 @@ export default class Controls extends EventEmitter {
         this.intersects[0].object.parent.traverse((child) => {
           if (child.isMesh && child != this.selected) {
             this.selected = child
-            this.selected.material.emissiveIntensity = 1
-            this.selected.material.emissive = new Color(0xff0000)
+            this.selected.material.emissiveIntensity = 0.5
+            this.selected.material.emissive = new Color(0xddddff)
           }
         })
       }
@@ -77,6 +78,13 @@ export default class Controls extends EventEmitter {
       if (this.selected == null) return
       this.camera.startVisit(this.selected.parent.parent)
       this.selected == null
+      this.houses.forEach((house) => {
+        house.traverse((child) => {
+          if (child.isMesh) {
+            child.material.emissiveIntensity = 0
+          }
+        })
+      })
     })
   }
 

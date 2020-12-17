@@ -19,6 +19,7 @@ export default class Camera {
     this.currentTargetPosition = new Vector3(0, 3, 60)
     this.verticalOffset = 1;
 
+    this.selectMode = true;
 
     this.lookBack = false;
     this.lookValue = 0;
@@ -93,6 +94,7 @@ export default class Camera {
     this.orbitControls.target.set(0, 0, 0)
     this.orbitControls.enabled = false;
     this.target = target
+    this.selectMode = false;
     this.state = 1
 
     this.currentTargetOrientation.set(
@@ -119,6 +121,7 @@ export default class Camera {
 
   stopVisit() {
     if (this.state == 1) {
+      this.selectMode = true;
       this.state = 2
       this.lookBack = false
       this.lastTargetRotation.set(
