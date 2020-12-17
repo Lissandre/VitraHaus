@@ -57,15 +57,20 @@ export default class World {
       this.button = document.createElement('button')
       this.button.innerHTML = 'Start VitraHaus'
       this.loadDiv.append(this.button)
-      this.button.addEventListener('click', () => {
+
+      let that = this
+      const start = function() {
+        that.button.removeEventListener('click', start)
         setTimeout(() => {
-          this.loadDiv.style.opacity = 0
+          that.loadDiv.style.opacity = 0
           setTimeout(() => {
-            this.loadDiv.remove()
-            this.init()
+            that.loadDiv.remove()
+            that.init()
           }, 550)
         }, 1000)
-      })
+      }
+
+      this.button.addEventListener('click', start)
       this.setAmbientLight()
       this.setSunLight()
       this.setWater()
