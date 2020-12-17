@@ -81,6 +81,7 @@ export default class Houses {
         )
 
       newHouse.position.set(newPos.x, newPos.y, newPos.z)
+      newHouse.originalPosition = new Vector3(newPos.x, newPos.y, newPos.z)
       this.houses.push(newHouse)
       this.container.add(newHouse)
 

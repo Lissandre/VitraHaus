@@ -81,9 +81,8 @@ export default class App {
       sizes: this.sizes,
       renderer: this.renderer,
       debug: this.debug,
-    })
-    this.time.on('tick', () => {
-      this.camera.orbitControls.update()
+      time: this.time,
+      houses: this.houses
     })
     // Add camera to scene
     this.scene.add(this.camera.container)
@@ -92,7 +91,7 @@ export default class App {
     this.infos = new Infos({
       houses: this.houses,
       sizes: this.sizes,
-      camera: this.camera.camera,
+      camera: this.camera,
     })
   }
   setPass() {
