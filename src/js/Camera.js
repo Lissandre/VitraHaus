@@ -1,5 +1,7 @@
 import { Object3D, PerspectiveCamera, Vector3 } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import data from '@/data.json'
+import anime from 'animejs'
 
 export default class Camera {
   constructor(options) {
@@ -9,6 +11,7 @@ export default class Camera {
     this.debug = options.debug
     this.time = options.time
     this.houses = options.houses
+    this.infos = options.infos
 
     // Set up
     this.container = new Object3D()
@@ -18,6 +21,12 @@ export default class Camera {
     this.targetPosition = new Vector3(0, 3, 60)
     this.currentTargetPosition = new Vector3(0, 3, 60)
     this.verticalOffset = 1
+
+    this.infosDOM = document.querySelector('.infos')
+    this.titleDOM = this.infosDOM.querySelector('h2.title')
+    this.descriptionDOM = this.infosDOM.querySelector('p.description')
+    this.authorDOM = this.infosDOM.querySelector('p.author')
+    this.linkDOM = this.infosDOM.querySelector('a.action')
 
     this.selectMode = true
 
@@ -89,8 +98,9 @@ export default class Camera {
     }
   }
 
-  startVisit(target) {
+  startVisit(target, index) {
     if (this.state == 1) return
+    this.index = index
     this.orbitControls.target.set(0, 0, 0)
     this.orbitControls.enabled = false
     this.target = target
@@ -114,7 +124,10 @@ export default class Camera {
     if (this.state == 1) {
       this.selectMode = true
       this.state = 2
+      //Unlook canvas
+      this.removeInfos()
       this.lookBack = false
+      console.log('false');
       this.lastTargetRotation.set(
         this.target.rotation.x,
         this.target.rotation.y,
@@ -167,7 +180,6 @@ export default class Camera {
     this.camera.position.lerp(pos, 0.05)
     document.querySelector('.goBack').classList.remove('hidden')
   }
-
   lerpToCamera() {
     let r = this.target.originalRotation.y
     let pos = new Vector3(
@@ -177,7 +189,10 @@ export default class Camera {
     )
     this.target.position.lerp(pos, 0.02)
     let d = this.target.position.distanceTo(pos)
+    //Look canvas
     if (d < 2 && this.state == 1) {
+      // console.log(this.target);
+      if(!this.lookBack) this.setInfos(this.index)
       this.lookBack = true
       this.target.plane.visible = true
     }
@@ -235,6 +250,48 @@ export default class Camera {
     document.querySelector('.goBack').addEventListener('click', () => {
       this.stopVisit()
       document.querySelector('.goBack').classList.add('hidden')
+    })
+  }
+  setInfos(index) {
+    this.titleDOM.innerHTML = data[index].title
+    this.descriptionDOM.innerHTML = data[index].description
+    this.linkDOM.href = data[index].url
+    this.authorDOM.innerHTML = data[index].author
+    anime({
+      targets: this.infosDOM,
+      opacity: [
+        { value: 0, duration: 0 },
+        { value: 1, duration: 250 },
+      ],
+      rotate: [
+        { value: 6, duration: 0 },
+        { value: 0, duration: 520 },
+      ],
+      translateY: [
+        { value: '10%', duration: 0 },
+        { value: '0%', duration: 520 },
+      ],
+      easing: 'easeOutQuad',
+      duration: 320,
+    })
+  }
+  removeInfos() {
+    anime({
+      targets: this.infosDOM,
+      opacity: [
+        { value: 1, duration: 0 },
+        { value: 0, duration: 250 },
+      ],
+      rotate: [
+        { value: 0, duration: 0 },
+        { value: -6, duration: 520 },
+      ],
+      translateY: [
+        { value: '0%', duration: 0 },
+        { value: '-10%', duration: 520 },
+      ],
+      easing: 'easeOutQuad',
+      duration: 320,
     })
   }
 }

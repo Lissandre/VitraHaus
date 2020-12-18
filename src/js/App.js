@@ -37,6 +37,7 @@ export default class App {
     this.sizes = new Sizes()
     this.assets = new Loader()
     this.houses = []
+    this.infos
     this.params = {
       color: 0xd2ddf5,
     }

@@ -14,11 +14,7 @@ export default class Controls extends EventEmitter {
     this.about = options.about
 
     // Set up
-    this.infosDOM = document.querySelector('.infos')
     this.nameDOM = document.querySelector('h1.name')
-    this.titleDOM = this.infosDOM.querySelector('h2.title')
-    this.descriptionDOM = this.infosDOM.querySelector('p.description')
-    this.linkDOM = this.infosDOM.querySelector('a.action')
 
     this.mouse = {}
     this.raycaster = new Raycaster()
@@ -56,16 +52,13 @@ export default class Controls extends EventEmitter {
       })
 
       this.intersects = this.raycaster.intersectObjects(this.objects)
-
       if (
         this.intersects.length > 0 &&
         this.camera.selectMode &&
         !this.about.isActive
       ) {
-        console.log(this.houses.indexOf(this.intersects[0].object.parent.parent))
-        this.setName(
-          this.houses.indexOf(this.intersects[0].object.parent.parent)
-        )
+        this.index = this.houses.indexOf(this.intersects[0].object.parent.parent)
+        this.setName(this.index)
         this.intersects[0].object.parent.traverse((child) => {
           if (child.isMesh && child != this.selected) {
             this.selected = child
@@ -124,51 +117,10 @@ export default class Controls extends EventEmitter {
       })
     }
   }
-  setInfos(index) {
-    this.titleDOM.innerHTML = data[index].title
-    this.descriptionDOM.innerHTML = data[index].description
-    this.linkDOM.href = data[index].url
-    anime({
-      targets: this.infosDOM,
-      opacity: [
-        { value: 0, duration: 0 },
-        { value: 1, duration: 250 },
-      ],
-      rotate: [
-        { value: 6, duration: 0 },
-        { value: 0, duration: 520 },
-      ],
-      translateY: [
-        { value: '-20%', duration: 0 },
-        { value: '-50%', duration: 520 },
-      ],
-      easing: 'easeOutQuad',
-      duration: 320,
-    })
-  }
-  removeInfos() {
-    anime({
-      targets: this.infosDOM,
-      opacity: [
-        { value: 0, duration: 0 },
-        { value: 1, duration: 250 },
-      ],
-      rotate: [
-        { value: 6, duration: 0 },
-        { value: 0, duration: 520 },
-      ],
-      translateY: [
-        { value: '-20%', duration: 0 },
-        { value: '-50%', duration: 520 },
-      ],
-      easing: 'easeOutQuad',
-      duration: 320,
-    })
-  }
   mouseClick() {
     document.addEventListener('click', () => {
       if (this.selected == null || this.about.isActive) return
-      this.camera.startVisit(this.selected.parent.parent)
+      this.camera.startVisit(this.selected.parent.parent, this.index)
       this.selected == null
       this.houses.forEach((house) => {
         house.traverse((child) => {
