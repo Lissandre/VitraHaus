@@ -62,6 +62,7 @@ export default class Controls extends EventEmitter {
         this.camera.selectMode &&
         !this.about.isActive
       ) {
+        console.log(this.houses.indexOf(this.intersects[0].object.parent.parent))
         this.setName(
           this.houses.indexOf(this.intersects[0].object.parent.parent)
         )

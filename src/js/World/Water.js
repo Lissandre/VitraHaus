@@ -59,7 +59,7 @@ export default class WaterScene {
 
     this.v = this.water.geometry.attributes.position.array
     this.water.rotation.x = -Math.PI / 2
-    this.water.position.y = -1.5
+    this.water.position.y = -1.2
     this.water.receiveShadow = true
     this.container.add(this.water)
   }
