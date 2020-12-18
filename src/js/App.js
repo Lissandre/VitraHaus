@@ -125,9 +125,9 @@ export default class App {
     // Create passes
     this.passes.renderPass = new RenderPass(this.scene, this.camera.camera)
     this.passes.bokehPass = new BokehPass(this.scene, this.camera.camera, {
-      focus: 60.0,
-      aperture: 0.00006,
-      maxblur: 0.003,
+      focus: 20.0,
+      aperture: 0.00002,
+      maxblur: 0.004,
       width: this.sizes.viewport.width,
       height: this.sizes.viewport.height,
     })
@@ -143,8 +143,8 @@ export default class App {
     this.passes.noisePass.renderToScreen = true
     // Add to composer
     this.passes.composer.addPass(this.passes.renderPass)
-    this.passes.composer.addPass(this.passes.bokehPass)
     this.passes.composer.addPass(this.passes.noisePass)
+    this.passes.composer.addPass(this.passes.bokehPass)
 
     if (this.debug) {
       this.debugFolder = this.debug.addFolder('Depth of Field')
