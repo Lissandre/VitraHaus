@@ -16,6 +16,7 @@ export default class Houses {
     this.time = options.time
     this.assets = options.assets
     this.housesList = options.housesList
+    this.gifs = options.gifs
 
     // Set up
     this.container = new Object3D()
@@ -41,20 +42,13 @@ export default class Houses {
   }
   setUpCanvas() {
     const sketch = (s) => {
-      let gifs = []
-      s.preload = () => {
-        for (let i = 0; i < this.amount; i++) {
-          gifs.push(s.loadImage('./gifs/' + i + '.gif'))
-        }
-      }
-
       s.setup = () => {
         this.canvas = s.createCanvas(500, 500, 500, 500)
         console.log()
       }
 
       s.draw = () => {
-        s.image(gifs[this.selected], 0, 0)
+        s.image(this.gifs[this.selected], 0, 0)
       }
     }
     new p5(sketch)
