@@ -48,7 +48,8 @@ export default class Houses {
       }
 
       s.draw = () => {
-        s.image(this.gifs[this.selected], 0, 0)
+        s.background(0)
+        s.image(this.gifs[this.selected], 0, 0, 500,500)
       }
     }
     new p5(sketch)
