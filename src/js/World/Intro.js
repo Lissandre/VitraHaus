@@ -16,7 +16,7 @@ export default class Intro extends EventEmitter {
         'Based on the architecture of Herzog & de Meuron’s VitraHaus, this building exhibits the work of several visual artists.',
         'Enjoy a better experience on desktop, with headphones.',
         'Take a minute to explore the museum with your mouse or your trackpad.',
-        'And scroll to navigate between the different masterpieces.',
+        'All the artwork was coded by Etienne Jacob.',
       ]
       if (!document.querySelector('.blur')) {
         document.querySelector('#_canvas').classList.add('blur')
