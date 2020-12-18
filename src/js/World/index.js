@@ -57,6 +57,7 @@ export default class World {
         }%`
     })
 
+
     this.assets.on('ressourcesReady', () => {
       this.button = document.createElement('button')
       this.button.innerHTML = 'Start VitraHaus'
@@ -86,10 +87,17 @@ export default class World {
       s.preload = () => {
         for (let i = 0; i < 20; i++) {
           let g = s.loadImage('./gifs/' + i + '.gif')
-          console.log(g)
           this.gifs.push(g)
         }
       }
+      s.setup = () => {
+        this.assets.done ++
+        this.progress.style.width = `${Math.floor((this.assets.done / this.assets.total) * 100) +
+          Math.floor((1 / this.assets.total) * this.assets.currentPercent)
+          }%`
+        this.assets.onCheck()
+      }
+
     }
     new p5(sketch)
   }
