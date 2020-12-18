@@ -13,7 +13,7 @@ export default class Loader extends EventEmitter {
 
     // Set up
     this.ressourcesList = []
-    this.total = 0
+    this.total = 1
     this.done = 0
     this.currentPercent = 0
     this.models = {}
@@ -207,9 +207,7 @@ export default class Loader extends EventEmitter {
       loaded
     )
     this.trigger('ressourceLoad', [ressource, loaded])
-    if (this.total === this.done) {
-      this.trigger('ressourcesReady')
-    }
+    this.onCheck()
   }
   createNestedObject(base, names, value) {
     let lastName = arguments.length === 3 ? names.pop() : false
@@ -218,5 +216,11 @@ export default class Loader extends EventEmitter {
     }
     if (lastName) base = base[lastName] = value
     return base
+  }
+
+  onCheck(){
+    if (this.total === this.done) {
+      this.trigger('ressourcesReady')
+    }
   }
 }

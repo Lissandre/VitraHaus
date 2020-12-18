@@ -9,6 +9,8 @@ import Houses from './Houses'
 import Terrain from './Terrain'
 import WaterScene from './Water'
 
+import p5 from 'p5'
+
 export default class World {
   constructor(options) {
     // Set options
@@ -21,6 +23,7 @@ export default class World {
 
     // Set up
     this.container = new Object3D()
+    this.gifs = []
 
     if (this.debug) {
       this.debugFolder = this.debug.addFolder('World')
@@ -38,6 +41,8 @@ export default class World {
     this.loadModels = this.loadDiv.querySelector('.load')
     this.progress = this.loadDiv.querySelector('.progress')
 
+    this.loadGifs()
+
     lottie.loadAnimation({
       container: this.loadModels, // the dom element that will contain the animation
       renderer: 'svg',
@@ -47,11 +52,11 @@ export default class World {
     })
 
     this.assets.on('ressourceLoad', () => {
-      this.progress.style.width = `${
-        Math.floor((this.assets.done / this.assets.total) * 100) +
+      this.progress.style.width = `${Math.floor((this.assets.done / this.assets.total) * 100) +
         Math.floor((1 / this.assets.total) * this.assets.currentPercent)
-      }%`
+        }%`
     })
+
 
     this.assets.on('ressourcesReady', () => {
       this.button = document.createElement('button')
@@ -76,6 +81,27 @@ export default class World {
       this.setWater()
     })
   }
+
+  loadGifs() {
+    const sketch = (s) => {
+      s.preload = () => {
+        for (let i = 0; i < 20; i++) {
+          let g = s.loadImage('./gifs/' + i + '.gif')
+          this.gifs.push(g)
+        }
+      }
+      s.setup = () => {
+        this.assets.done ++
+        this.progress.style.width = `${Math.floor((this.assets.done / this.assets.total) * 100) +
+          Math.floor((1 / this.assets.total) * this.assets.currentPercent)
+          }%`
+        this.assets.onCheck()
+      }
+
+    }
+    new p5(sketch)
+  }
+
   setIntro() {
     this.intro = new Intro({
       introStatus: this.introStatus,
@@ -106,6 +132,7 @@ export default class World {
         time: this.time,
         assets: this.assets,
         housesList: this.housesList,
+        gifs: this.gifs
       })
       this.container.add(this.houses.container)
     })
