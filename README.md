@@ -9,7 +9,7 @@ VitraHaus is a school project made at Les Gobelins in which we had to make an im
 We choose to go with some generative art so we made an entire generated world inspired from Herzog and De Meuron's architecture.
 
 ## Technos
-Three.js, P5.js & Stylus compiled with wepack, based on [this template](https://github.com/Lissandre/three_template)
+Three.js, P5.js & Stylus compiled with wepack, based on [this template](https://github.com/Lissandre/three_template).
 We also used the Web Audio API, and Anime.js
 
 ## Team
