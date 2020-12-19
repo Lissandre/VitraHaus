@@ -1,52 +1,25 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/d707dd72-496e-42fd-a0c6-0af5289dfa46/deploy-status)](https://vitrahaus.netlify.app/)
 
-# THREE.js TEMPLATE
+# VitraHaus
 
-## Requirements & Setup
-You need to have **node.js** installed. 
+## What is it ?
+VitraHaus is a school project made at Les Gobelins in which we had to make an immersive experience to extends a piece of art, or to show some. 
 
-Start with `npm run init`
+## Inspiration
+We choose to go with some generative art so we made an entire generated world inspired from Herzog and De Meuron's architecture.
 
-This command will init a git repository on your machine, install dependencies and remove useless files and directories for your project.
-After that, this command won't be available anymore.
+## Technos
+Three.js, P5.js & Stylus compiled with wepack, based on [this template](https://github.com/Lissandre/three_template)
+We also used the Web Audio API, and Anime.js
 
-## Development
-Run the local webpack-dev-server with hotreload and autocompile on:
-- local: [http://localhost:8080/](http://localhost:8080/)
-- network: http://your-local-ip:8080/
+## Team
+### Design
+- Lucas Perret
+- Bastien Maillotte
+### Dev
+- Leith Ben Abdessalem
+- Lissandre Pasdeloup
 
-```sh
-$ npm run dev
-```
+## Where to see it ?
+[Visit website](https://vitrahaus.netlify.app/)
 
-### Debug
-Go to your-url/#debug
-
-## Alias
-- **@**: `src/`
-- **@style**: `src/style/`
-- **@fonts**: `src/fonts/`
-- **@models**: `src/models/`
-- **@sounds**: `src/sounds/`
-- **@shaders**: `src/shaders/`
-- **@textures**: `src/textures/`
-- **@js**: `src/js/`
-- **@tools**: `src/js/Tools/`
-- **@world**: `src/js/World/`
-
-## Features
-- eslint
-- prettier
-- babel
-- stylus
-- dat.GUI
-- models import
-
-## Deployment
-Build the current application (default output in `dist/`).
-```sh
-$ npm run build
-```
-
-## Template link
-[https://github.com/Lissandre/three_template](https://github.com/Lissandre/three_template)
