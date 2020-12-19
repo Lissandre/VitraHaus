@@ -15,7 +15,7 @@ We also used the Web Audio API, and Anime.js
 ## Team
 ### Design
 - Lucas Perret: [website](https://lucas-perret.com)
-- Bastien Maillotte: [website](https://bastienmaillotte.fr)
+- Bastien Maillotte: [website](http://bastienmaillotte.fr)
 ### Dev
 - Leith Ben Abdessalem: [github](https://github.com/LeithBA) - [website](https://leithba.com/)
 - Lissandre Pasdeloup: [github](https://github.com/Lissandre)
