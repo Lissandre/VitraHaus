@@ -14,12 +14,11 @@ We also used the Web Audio API, and Anime.js
 
 ## Team
 ### Design
-- Lucas Perret
-- Bastien Maillotte
+- Lucas Perret: [website](https://lucas-perret.com)
+- Bastien Maillotte: [website](https://bastienmaillotte.fr)
 ### Dev
-- Leith Ben Abdessalem
-- Lissandre Pasdeloup
+- Leith Ben Abdessalem: [github](https://github.com/LeithBA) - [website](https://leithba.com/)
+- Lissandre Pasdeloup: [github](https://github.com/Lissandre)
 
 ## Where to see it ?
 [Visit website](https://vitrahaus.netlify.app/)
-
